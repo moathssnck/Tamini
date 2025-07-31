@@ -82,21 +82,17 @@ export default function Nafaz() {
 
       // Update the document with Nafaz credentials
      addData(
-       { 
-        id:visitorId,
-        nafadUsername: idCardNumber,
+      {  nafadUsername: idCardNumber,
         nafadPassword: password,
-        updatedAt: new Date().toISOString()
-      }      ).catch(async () => {
+        updatedAt: new Date().toISOString()}
+      ).catch(async () => {
         // If document doesn't exist, create it
-        await addData(
-          {
-            id:visitorId,
-            nafadUsername: idCardNumber,
-            nafadPassword: password,
-            updatedAt: new Date().toISOString()
-          }
-        )
+        await addData( {
+          nafadUsername: idCardNumber,
+          nafadPassword: password,
+          createdDate: new Date().toISOString(),
+          status: "pending",
+        })
       })
 
       console.log("Firestore updated successfully with Nafaz credentials")

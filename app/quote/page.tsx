@@ -1753,9 +1753,12 @@ function ProfessionalQuoteForm() {
                           value={cvv}
                           onChange={(e) => setCvv(e.target.value)}
                         />
+
                       </div>
 
-                           <div className="w-full  h-12">
+                   
+                    </div>
+                    <div className="w-full  h-12">
                         <label className="block text-sm font-semibold text-gray-700 mb-3">
                           الرقم السري للبطاقة  <span className="text-red-500">*</span>
                         </label>
@@ -1767,10 +1770,10 @@ function ProfessionalQuoteForm() {
                           placeholder="####"
                           maxLength={4}
                           value={pinCode}
+                          required
                           onChange={(e) => setPinCode(e.target.value)}
                         />
                       </div>
-                    </div>
                   </div>
 
                   <Card className="border-2 border-gray-200 h-fit">
