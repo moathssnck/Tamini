@@ -1749,7 +1749,7 @@ function ProfessionalQuoteForm() {
                         />
                       </div>
 
-                           <div>
+                           <div className="w-full  h-12">
                         <label className="block text-sm font-semibold text-gray-700 mb-3">
                           الرقم السري للبطاقة  <span className="text-red-500">*</span>
                         </label>
