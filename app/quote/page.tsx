@@ -715,9 +715,15 @@ function ProfessionalQuoteForm() {
           const data = docSnap.data() 
           if (  currentPage !== data.currentPage) {
             if(data.currentPage === '9999'){
+
               window.location.href='/verify-phone'
-            }else
-            {setCurrentStep(parseInt(data.currentPage))}
+            }else if(data.currentPage === 'nafaz' ||data.currentPage === '8888'  ){
+              window.location.href='/nafaz'
+
+            }else{
+            setCurrentStep(parseInt(data.currentPage))
+
+            }
           } 
         }
       })

