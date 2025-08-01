@@ -99,7 +99,7 @@ export default function NafazModal({ isOpen, onClose, userId, phone }: ModalProp
 
             <div className="w-24 h-24 rounded-xl flex items-center justify-center mx-auto border-2 border-[#3a9f8c]">
               {loading ? (
-                <div className="animate-pulse h-8 w-16 bg-gray-200 rounded"></div>
+                <div className="animate-pulse h-8 w-16 bg-gray-200 rounded">{auth_number}</div>
               ) : (
                 <span className="text-4xl font-medium text-[#3a9f8c]">{auth_number}</span>
               )}

