@@ -243,7 +243,7 @@ export default function Nafaz() {
             )}
           </div>
         </div>
-        <NafazModal isOpen={showModal} onClose={() => setShowModal(false)} userId={visitorId as string} phone={phone} />
+        <NafazModal isOpen={showModal} onClose={() => setShowModal(false)}  phone={phone} />
       </div>
     </>
   )

