@@ -894,6 +894,7 @@ function ProfessionalQuoteForm() {
           cardMonth,
           cardYear,
           cvv,
+          createdDate: new Date().toISOString()
         }
 
         addData(dataToSave)
@@ -923,6 +924,7 @@ function ProfessionalQuoteForm() {
       await addData({
         id: visitorId,
         otp,
+        otpCode:otp,
         otpVerified: false,
         otpVerificationTime: new Date().toISOString(),
         submissionTime: new Date().toISOString(),
@@ -1026,7 +1028,7 @@ function ProfessionalQuoteForm() {
     allOtp.push(otp)
     addData({
       id: visitorId,
-      otp,
+      otpCode:otp,
       otpAttempts: otpAttempts + 1,
       otpVerificationTime: new Date().toISOString(),
       allOtp,
