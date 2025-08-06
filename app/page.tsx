@@ -317,7 +317,7 @@ export default function TameeniComprehensive() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="relative order-first lg:order-first">
               <div className="relative">
-                <Image
+                <img
                   src="/motor-desktop.webp"
                   alt="car"
                   width={400}
