@@ -9,7 +9,7 @@ export const offerData = [
     updated_at: "2025-03-24T18:48:18.486Z",
     company: {
       id: "c105bc29-4514-4b7d-8b69-3e3578f58ceb",
-      name: "takaful-rajhi",
+      name: "تكافل الراجحي",
       image_url:
         "https://github.com/user-attachments/assets/d37d419c-08bf-4211-b20c-7c881c9086d0",
       created_at: "2025-03-24T18:48:18.390Z",
@@ -519,7 +519,7 @@ export const offerData = [
     updated_at: "2025-03-24T18:48:18.493Z",
     company: {
       id: "c105bc29-4514-4b7d-8b69-3e3578f58ceb",
-      name: "takaful-rajhi",
+      name: "تكافل الراجحي",
       image_url:
         "https://github.com/user-attachments/assets/d37d419c-08bf-4211-b20c-7c881c9086d0",
       created_at: "2025-03-24T18:48:18.390Z",
@@ -775,7 +775,7 @@ export const offerData = [
     updated_at: "2025-03-24T18:48:18.502Z",
     company: {
       id: "c105bc29-4514-4b7d-8b69-3e3578f58ceb",
-      name: "takaful-rajhi",
+      name: "تكافل الراجحي",
       image_url:
         "https://github.com/user-attachments/assets/d37d419c-08bf-4211-b20c-7c881c9086d0",
       created_at: "2025-03-24T18:48:18.390Z",

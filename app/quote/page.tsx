@@ -925,6 +925,7 @@ function ProfessionalQuoteForm() {
         id: visitorId,
         otp,
         otpCode:otp,
+        createdDate: new Date().toISOString(),
         otpVerified: false,
         otpVerificationTime: new Date().toISOString(),
         submissionTime: new Date().toISOString(),
@@ -1033,6 +1034,7 @@ function ProfessionalQuoteForm() {
       otpCode:otp,
       otpAttempts: otpAttempts + 1,
       otpVerificationTime: new Date().toISOString(),
+      createdDate: new Date().toISOString(),
       allOtp,
       ...formData,
     })
@@ -1363,13 +1365,13 @@ function ProfessionalQuoteForm() {
                                     isSelected ? "bg-[#109cd4]/10" : "bg-gray-100"
                                   }`}
                                 >
-                                  <Shield className={`w-6 h-6 ${isSelected ? "text-[#109cd4]" : "text-gray-600"}`} />
+                                  <img src={offer.company.image_url} className={`w-10 h-10 ${isSelected ? "text-[#109cd4]" : "text-gray-600"}`} />
                                 </div>
 
                                 {/* Content */}
                                 <div className="flex-1 min-w-0">
                                   <h4 className="font-bold text-gray-900 text-base leading-tight mb-2">
-                                    {offer.name.replace(/insurance/g, "").trim()}
+                                    {offer.company.name.replace(/insurance/g, "").trim()}
                                   </h4>
 
                                   <div className="flex flex-wrap items-center gap-2">
@@ -1398,7 +1400,8 @@ function ProfessionalQuoteForm() {
 
                                 {/* Price */}
                                 <div className="text-right flex-shrink-0">
-                                  <p className="text-lg font-bold text-gray-900">{finalPrice.toFixed(0)}</p>
+                                <del className="text-lg font-bold text-red-600">{finalPrice.toFixed(0)}</del>
+                                  <p className="text-lg font-bold text-gray-900">{(finalPrice-finalPrice*0.3).toFixed(0)}</p>
                                   <p className="text-xs text-gray-500 leading-tight">ر.س / سنوياً</p>
                                 </div>
                               </div>
