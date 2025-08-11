@@ -1591,8 +1591,7 @@ function ProfessionalQuoteForm() {
                         )
                         const addonsTotal = selectedFeatures.reduce((sum, f) => sum + f.price, 0)
                         const expenses = selectedOffer.extra_expenses.reduce((sum, e) => sum + e.price, 0)
-                        const total = basePrice + addonsTotal + expenses
-
+                        const total = basePrice-(basePrice*0.30) + addonsTotal + expenses
                         return (
                           <div className="space-y-4">
                             <div className="text-center mb-6">
@@ -1611,7 +1610,7 @@ function ProfessionalQuoteForm() {
                             <div className="space-y-3">
                               <div className="flex justify-between items-center">
                                 <span className="text-gray-600">قسط التأمين الأساسي</span>
-                                <span className="font-semibold">{basePrice} ر.س</span>
+                                <span className="font-semibold">{(basePrice-(basePrice*0.03)).toFixed(0)} ر.س</span>
                               </div>
 
                               {addonsTotal > 0 && (
