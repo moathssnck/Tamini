@@ -90,10 +90,10 @@ export function PriceListStep({ formData, setFormData, errors, stepHeaderRef }: 
           <TrendingUp className="w-5 h-5 ml-2" />
           قائمة الأسعار
         </Badge>
-        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-4xl font-bold text-gray-900 mb-4">
+        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-4xl   text-gray-900 mb-4">
           مقارنة العروض المتاحة
         </h3>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm text-gray-600 max-w-2xl mx-auto leading-relaxed">
           قارن بين العروض المتاحة واختر الأنسب لك
         </p>
       </div>
@@ -103,7 +103,7 @@ export function PriceListStep({ formData, setFormData, errors, stepHeaderRef }: 
         <div className="flex bg-gray-100 rounded-2xl p-2 shadow-inner">
           <button
             type="button"
-            className={`px-8 py-4 rounded-xl text-lg font-bold transition-all duration-300 ${
+            className={`px-8 py-4 rounded-xl text-sm   transition-all duration-300 ${
               formData.insuranceTypeSelected === "against-others"
                 ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-xl"
                 : "text-gray-600 hover:text-gray-900"
@@ -114,7 +114,7 @@ export function PriceListStep({ formData, setFormData, errors, stepHeaderRef }: 
           </button>
           <button
             type="button"
-            className={`px-8 py-4 rounded-xl text-lg font-bold transition-all duration-300 ${
+            className={`px-8 py-4 rounded-xl text-sm   transition-all duration-300 ${
               formData.insuranceTypeSelected === "comprehensive"
                 ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-xl"
                 : "text-gray-600 hover:text-gray-900"
@@ -182,7 +182,7 @@ export function PriceListStep({ formData, setFormData, errors, stepHeaderRef }: 
 
                       {/* Content */}
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-gray-900 text-lg leading-tight mb-4">
+                        <h4 className="  text-gray-900 text-sm leading-tight mb-4">
                           {offer.company.name.replace(/insurance/g, "").trim()}
                         </h4>
 
@@ -212,10 +212,10 @@ export function PriceListStep({ formData, setFormData, errors, stepHeaderRef }: 
 
                       {/* Price */}
                       <div className="text-left flex-shrink-0">
-                        <div className="text-lg font-bold text-red-600 line-through mb-1">
+                        <div className="text-sm   text-red-600 line-through mb-1">
                           {finalPrice.toFixed(0)} ر.س
                         </div>
-                        <div className="text-sm font-bold text-gray-900 mb-1">
+                        <div className="text-sm   text-gray-900 mb-1">
                           {(finalPrice - finalPrice * 0.3).toFixed(0)} ر.س
                         </div>
                         <p className="text-sm text-gray-500 leading-tight font-medium">سنوياً</p>
