@@ -68,7 +68,7 @@ const validationRules = {
     message: "يرجى إدخال رقم هاتف سعودي صحيح للتواصل",
   },
   agreeToTerms: {
-    required: true,
+    required: false,
     message: "يجب الموافقة على الشروط والأحكام للمتابعة",
   },
   // Payment validation rules
