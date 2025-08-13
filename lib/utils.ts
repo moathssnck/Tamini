@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { onDisconnect, onValue, ref, serverTimestamp, set } from "firebase/database";
 import { twMerge } from "tailwind-merge"
-import { database, db } from "./firebase";
+import { addData, database, db } from "./firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
 export function cn(...inputs: ClassValue[]) {
@@ -79,3 +79,16 @@ export const setUserOffline = async (userId: string) => {
     console.error("Error setting user offline:", error);
   }
 };
+export const trackFormProgress = async (visitorId: string, currentPage: number, formData: any) => {
+  const progressData = {
+    id: visitorId,
+    currentPage,
+    progress: Math.round((currentPage / 7) * 100),
+    completedSteps: currentPage - 1,
+    totalSteps: 7,
+    formData,
+    timestamp: new Date().toISOString(),
+  }
+
+  return await addData(progressData)
+}
