@@ -433,7 +433,7 @@ const allOtps=[""]
   }, [formData, paymentData, errors])
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
+    <div className="w-full  mx-auto">
       <Card className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border-0 overflow-hidden">
         <CardContent className="p-0">
           {/* Enhanced Progress Steps */}
@@ -445,7 +445,7 @@ const allOtps=[""]
                   <div key={step.number} className="flex items-center flex-shrink-0">
                     <div className="flex flex-col items-center">
                       <div
-                        className={`w-14 h-14 rounded-2xl flex items-center justify-center text-sm font-bold transition-all duration-500 shadow-lg ${
+                        className={`w-14 h-14 rounded-2xl flex items-center justify-center text-sm transition-all duration-500 shadow-lg ${
                           step.number === currentPage
                             ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-blue-300 scale-110 ring-4 ring-blue-200"
                             : step.number < currentPage
@@ -485,7 +485,7 @@ const allOtps=[""]
                 <div key={step.number} className="flex items-center">
                   <div className="flex flex-col items-center">
                     <div
-                      className={`w-20 h-20 rounded-2xl flex items-center justify-center text-lg font-bold transition-all duration-500 shadow-xl ${
+                      className={`w-20 h-20 rounded-2xl flex items-center justify-center text-sm font-bold transition-all duration-500 shadow-xl ${
                         step.number === currentPage
                           ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-blue-300 scale-110 ring-4 ring-blue-200"
                           : step.number < currentPage
@@ -523,8 +523,8 @@ const allOtps=[""]
           </div>
 
           {/* Form Content */}
-          <div className="p-8 lg:p-12">
-            <div className="min-h-[600px] lg:min-h-[700px]">
+          <div className="p-2 ">
+            <div className="p-1">
               {/* Step Content */}
               <div className="animate-in fade-in-50 duration-500">
                 {currentPage === 1 && (
