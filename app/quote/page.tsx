@@ -448,7 +448,7 @@ export default function QuotePage() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4 lg:gap-8">
             <div className="flex items-center gap-4">
-              <div className="w-24 h-14 rounded-xl flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg">
+              <div className="w-24 h-14 rounded-xl flex items-center justify-center ">
                 <img src="/Logo-AR.png" alt="logo" width={96} height={56} className="rounded-lg" />
               </div>
               <div className="hidden sm:block">
