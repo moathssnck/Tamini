@@ -29,7 +29,7 @@ export function InsurancePurposeStep({
           <FileText className="w-5 h-5 ml-2" />
           البيانات الأساسية
         </Badge>
-        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-md font-bold text-gray-900 mb-4">
           معلومات المركبة والمالك
         </h3>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -45,7 +45,7 @@ export function InsurancePurposeStep({
               <FileText className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h4 className="font-bold text-gray-900 text-xl">الغرض من التأمين</h4>
+              <h4 className="font-bold text-gray-900 text-sm">الغرض من التأمين</h4>
               <p className="text-gray-600 font-medium">اختر نوع الخدمة المطلوبة</p>
             </div>
           </div>
@@ -64,7 +64,7 @@ export function InsurancePurposeStep({
                 <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <UserCheck className="w-8 h-8 text-white" />
                 </div>
-                <div className="font-bold text-xl mb-3 text-gray-900">تجديد وثيقة</div>
+                <div className="font-bold text-sm mb-3 text-gray-900">تجديد وثيقة</div>
                 <div className="text-gray-600 font-medium">تجديد وثيقة تأمين موجودة</div>
               </div>
               {formData.insurance_purpose === "renewal" && (
@@ -89,7 +89,7 @@ export function InsurancePurposeStep({
                 <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <ArrowRight className="w-8 h-8 text-white" />
                 </div>
-                <div className="font-bold text-xl mb-3 text-gray-900">نقل ملكية</div>
+                <div className="font-bold text-sm mb-3 text-gray-900">نقل ملكية</div>
                 <div className="text-gray-600 font-medium">تأمين مركبة منقولة الملكية</div>
               </div>
               {formData.insurance_purpose === "property-transfer" && (
@@ -112,7 +112,7 @@ export function InsurancePurposeStep({
               <Building2 className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h4 className="font-bold text-gray-900 text-xl">نوع المركبة</h4>
+              <h4 className="font-bold text-gray-900 text-sm">نوع المركبة</h4>
               <p className="text-gray-600 font-medium">حدد طريقة تسجيل المركبة</p>
             </div>
           </div>
@@ -131,7 +131,7 @@ export function InsurancePurposeStep({
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <FileText className="w-8 h-8 text-white" />
                 </div>
-                <div className="font-bold text-xl mb-3 text-gray-900">مركبة برقم تسلسلي</div>
+                <div className="font-bold text-sm mb-3 text-gray-900">مركبة برقم تسلسلي</div>
                 <div className="text-gray-600 font-medium">مركبة مسجلة برقم تسلسلي</div>
               </div>
               {formData.vehicle_type === "serial" && (
@@ -156,7 +156,7 @@ export function InsurancePurposeStep({
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <Building2 className="w-8 h-8 text-white" />
                 </div>
-                <div className="font-bold text-xl mb-3 text-gray-900">مركبة برقم لوحة</div>
+                <div className="font-bold text-sm mb-3 text-gray-900">مركبة برقم لوحة</div>
                 <div className="text-gray-600 font-medium">مركبة مسجلة برقم لوحة</div>
               </div>
               {formData.vehicle_type === "custom" && (
@@ -333,4 +333,3 @@ export function InsurancePurposeStep({
     </div>
   )
 }
-  

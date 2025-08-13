@@ -58,7 +58,7 @@ export default function InsurancePurpose({ formData, setFormData, errors }: Insu
               onClick={() => handleFieldChange("insurance_purpose", purpose.id)}
             >
               <CardContent className="p-4 text-center">
-                <div className="text-2xl mb-2">{purpose.icon}</div>
+                <div className="text-sm mb-2">{purpose.icon}</div>
                 <h5 className="font-semibold text-gray-900 mb-1">{purpose.title}</h5>
                 <p className="text-xs text-gray-600">{purpose.description}</p>
               </CardContent>

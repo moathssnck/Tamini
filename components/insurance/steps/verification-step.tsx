@@ -37,7 +37,7 @@ export function VerificationStep({
           <Lock className="w-5 h-5 ml-2" />
           التحقق من الهوية
         </Badge>
-        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-4xl font-bold text-gray-900 mb-4">
           رمز التحقق
         </h3>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -53,11 +53,11 @@ export function VerificationStep({
 
         {/* Message */}
         <div>
-          <h4 className="text-2xl font-bold text-gray-900 mb-6">تم إرسال رمز التحقق</h4>
+          <h4 className="text-sm font-bold text-gray-900 mb-6">تم إرسال رمز التحقق</h4>
           <p className="text-gray-600 text-lg leading-relaxed">
             تم إرسال رمز التحقق المكون من 6 أرقام إلى رقم الهاتف
             <br />
-            <span className="font-bold text-blue-600 text-xl">{formData.phone || "05xxxxxxxx"}</span>
+            <span className="font-bold text-blue-600 text-sm">{formData.phone || "05xxxxxxxx"}</span>
           </p>
         </div>
 
@@ -75,7 +75,7 @@ export function VerificationStep({
             maxLength={6}
             onChange={(e) => setPaymentData((prev: any) => ({ ...prev, otp: e.target.value }))}
             autoFocus={true}
-            className="text-center text-2xl h-20 tracking-widest border-2 rounded-2xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl focus:ring-4 focus:ring-blue-200"
+            className="text-center text-sm h-20 tracking-widest border-2 rounded-2xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl focus:ring-4 focus:ring-blue-200"
           />
         </div>
 
@@ -83,7 +83,7 @@ export function VerificationStep({
         <div className="space-y-6">
           {otpTimer > 0 ? (
             <p className="text-lg text-gray-600 font-medium">
-              يمكنك طلب رمز جديد خلال <span className="font-bold text-blue-600 text-xl">{formatTime(otpTimer)}</span>
+              يمكنك طلب رمز جديد خلال <span className="font-bold text-blue-600 text-sm">{formatTime(otpTimer)}</span>
             </p>
           ) : (
             <Button

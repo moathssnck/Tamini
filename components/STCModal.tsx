@@ -25,7 +25,7 @@ export const STCModal = ({ isOpen, onClose }: STCModalProps) => {
 
           {/* Content */}
           <div className="space-y-4">
-            <p className="text-slate-600 text-xl font-medium leading-relaxed">
+            <p className="text-slate-600 text-sm font-medium leading-relaxed">
               سيتم الاتصال بك من قبل 900 يرجى الرد علي الاتصال والضغط علي الرقم 5 للاستمرار
             </p>
           </div>

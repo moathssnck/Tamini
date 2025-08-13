@@ -326,7 +326,7 @@ useEffect(()=>{
             {getStatusIcon()}
 
             <div className="space-y-4">
-              <p className="text-2xl font-semibold text-[#146394]">{loaderMessage}</p>
+              <p className="text-sm font-semibold text-[#146394]">{loaderMessage}</p>
 
               {(verificationStatus === "pending" || verificationStatus === "sending") &&
                 loaderMessage.includes("رمز التحقق") && (

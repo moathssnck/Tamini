@@ -36,7 +36,7 @@ export function AddonsStep({ formData, setFormData, errors, stepHeaderRef }: Add
           <Star className="w-5 h-5 ml-2" />
           الإضافات والخدمات
         </Badge>
-        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-4xl font-bold text-gray-900 mb-4">
           الخدمات الإضافية
         </h3>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -54,7 +54,7 @@ export function AddonsStep({ formData, setFormData, errors, stepHeaderRef }: Add
               <div className="w-32 h-32 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-10 shadow-xl">
                 <CheckCircle className="w-16 h-16 text-green-600" />
               </div>
-              <h4 className="text-2xl font-bold text-gray-900 mb-6">جميع المزايا مشمولة!</h4>
+              <h4 className="text-sm font-bold text-gray-900 mb-6">جميع المزايا مشمولة!</h4>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
                 العرض المختار يشمل جميع المزايا الأساسية بدون رسوم إضافية
               </p>
@@ -89,7 +89,7 @@ export function AddonsStep({ formData, setFormData, errors, stepHeaderRef }: Add
                       </div>
                     </div>
                     <div className="text-left">
-                      <p className="text-xl font-bold text-gray-900">+{feature.price} ر.س</p>
+                      <p className="text-sm font-bold text-gray-900">+{feature.price} ر.س</p>
                       <p className="text-sm text-gray-500 font-medium">سنوياً</p>
                     </div>
                   </div>

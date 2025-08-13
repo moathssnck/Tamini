@@ -90,7 +90,7 @@ export function PriceListStep({ formData, setFormData, errors, stepHeaderRef }: 
           <TrendingUp className="w-5 h-5 ml-2" />
           قائمة الأسعار
         </Badge>
-        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-4xl font-bold text-gray-900 mb-4">
           مقارنة العروض المتاحة
         </h3>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -215,7 +215,7 @@ export function PriceListStep({ formData, setFormData, errors, stepHeaderRef }: 
                         <div className="text-lg font-bold text-red-600 line-through mb-1">
                           {finalPrice.toFixed(0)} ر.س
                         </div>
-                        <div className="text-2xl font-bold text-gray-900 mb-1">
+                        <div className="text-sm font-bold text-gray-900 mb-1">
                           {(finalPrice - finalPrice * 0.3).toFixed(0)} ر.س
                         </div>
                         <p className="text-sm text-gray-500 leading-tight font-medium">سنوياً</p>

@@ -100,7 +100,7 @@ export default function NafazModal({ isOpen, onClose,phone, auth_number: propAut
               </svg>
             </button>
 
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#3a9f8c] text-right">التحقق من خلال تطبيق نفاذ</h3>
+            <h3 className="text-sm sm:text-3xl font-bold text-[#3a9f8c] text-right">التحقق من خلال تطبيق نفاذ</h3>
 
             <span className="bg-[#3a9f8c] flex justify-center p-4 text-white rounded-lg text-lg">تطبيق نفاذ</span>
 

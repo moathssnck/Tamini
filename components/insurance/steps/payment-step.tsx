@@ -123,7 +123,7 @@ export function PaymentStep({
               <Lock className="w-7 h-7 text-white" />
             </div>
             <div>
-              <p className="font-bold text-blue-900 text-xl">دفع آمن ومحمي</p>
+              <p className="font-bold text-blue-900 text-sm">دفع آمن ومحمي</p>
               <p className="text-lg text-blue-700 font-medium">جميع بياناتك محمية بتشفير SSL 256-bit</p>
             </div>
           </div>
@@ -160,7 +160,7 @@ export function PaymentStep({
               {/* Card type indicator */}
               <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
                 <div className={`flex items-center gap-2 ${cardType.color}`}>
-                  <span className="text-xl">{cardType.icon}</span>
+                  <span className="text-sm">{cardType.icon}</span>
                   <span className="text-sm font-bold">{cardType.type !== "Unknown" ? cardType.type : ""}</span>
                 </div>
               </div>
@@ -330,7 +330,7 @@ export function PaymentStep({
                   <Lock className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <p className="font-bold text-green-800 text-xl">معلومات آمنة</p>
+                  <p className="font-bold text-green-800 text-sm">معلومات آمنة</p>
                   <p className="text-lg text-green-600 font-medium">جميع بيانات البطاقة مشفرة ولا يتم حفظها</p>
                 </div>
               </div>

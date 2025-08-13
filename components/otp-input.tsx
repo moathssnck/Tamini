@@ -59,7 +59,7 @@ export function OtpInput({ value, onChange, length = 6, error }: OtpInputProps) 
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             onPaste={handlePaste}
-            className={`w-12 h-14 text-center text-xl font-bold border-2 rounded-lg focus:outline-none transition-colors ${
+            className={`w-12 h-14 text-center text-sm font-bold border-2 rounded-lg focus:outline-none transition-colors ${
               error ? "border-red-300 focus:border-red-500" : "border-gray-300 focus:border-[#146394]"
             }`}
             autoComplete="one-time-code"

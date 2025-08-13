@@ -42,7 +42,7 @@ export function InsuranceTypeStep({ formData, setFormData, errors, stepHeaderRef
               <Shield className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h4 className="font-bold text-gray-900 text-xl">نوع التأمين</h4>
+              <h4 className="font-bold text-gray-900 text-sm">نوع التأمين</h4>
               <p className="text-gray-600 font-medium">اختر نوع التغطية المناسبة لك</p>
             </div>
           </div>
@@ -61,7 +61,7 @@ export function InsuranceTypeStep({ formData, setFormData, errors, stepHeaderRef
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <Shield className="w-8 h-8 text-white" />
                 </div>
-                <div className="font-bold text-xl mb-3 text-gray-900">تأمين شامل</div>
+                <div className="font-bold text-sm mb-3 text-gray-900">تأمين شامل</div>
                 <div className="text-gray-600 font-medium">تغطية شاملة لجميع المخاطر</div>
               </div>
             </button>
@@ -79,7 +79,7 @@ export function InsuranceTypeStep({ formData, setFormData, errors, stepHeaderRef
                 <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <Users className="w-8 h-8 text-white" />
                 </div>
-                <div className="font-bold text-xl mb-3 text-gray-900">ضد الغير</div>
+                <div className="font-bold text-sm mb-3 text-gray-900">ضد الغير</div>
                 <div className="text-gray-600 font-medium">تغطية الأضرار للطرف الثالث</div>
               </div>
             </button>
@@ -95,12 +95,12 @@ export function InsuranceTypeStep({ formData, setFormData, errors, stepHeaderRef
               <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
                 <Users className="w-7 h-7 text-white" />
               </div>
-              <span className="font-bold text-xl text-gray-900">إضافة سائقين</span>
+              <span className="font-bold text-sm text-gray-900">إضافة سائقين</span>
             </div>
             <div className="flex items-center justify-center gap-6 mb-6">
               <button
                 type="button"
-                className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl text-2xl font-bold transform hover:scale-110"
+                className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl text-sm font-bold transform hover:scale-110"
                 onClick={() => handleFieldChange("additionalDrivers", Math.max(0, formData.additionalDrivers - 1))}
               >
                 -
@@ -108,7 +108,7 @@ export function InsuranceTypeStep({ formData, setFormData, errors, stepHeaderRef
               <span className="text-3xl font-bold text-gray-900 min-w-[4rem]">{formData.additionalDrivers}</span>
               <button
                 type="button"
-                className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl text-2xl font-bold transform hover:scale-110"
+                className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl text-sm font-bold transform hover:scale-110"
                 onClick={() => handleFieldChange("additionalDrivers", Math.min(5, formData.additionalDrivers + 1))}
               >
                 +
@@ -124,7 +124,7 @@ export function InsuranceTypeStep({ formData, setFormData, errors, stepHeaderRef
               <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-green-700 rounded-2xl flex items-center justify-center shadow-lg">
                 <Star className="w-7 h-7 text-white" />
               </div>
-              <span className="font-bold text-xl text-green-800">خصومات خاصة</span>
+              <span className="font-bold text-sm text-green-800">خصومات خاصة</span>
             </div>
             <div className="flex items-center gap-4 mb-8 justify-center">
               <input

@@ -27,10 +27,10 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
           <CheckCircle className="w-6 h-6 ml-2" />
           ملخص الطلب
         </Badge>
-        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
+        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-5xl font-bold text-gray-900 mb-6">
           مراجعة طلبك النهائي
         </h3>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-sm text-gray-600 max-w-3xl mx-auto leading-relaxed">
           راجع جميع التفاصيل بعناية قبل إتمام عملية الدفع
         </p>
       </div>
@@ -47,7 +47,7 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                     <Shield className="w-8 h-8" />
                   </div>
                   <div>
-                    <h4 className="text-2xl font-bold">التأمين المختار</h4>
+                    <h4 className="text-sm font-bold">التأمين المختار</h4>
                     <p className="text-blue-100 text-lg">{selectedOffer.company.name}</p>
                   </div>
                 </div>
@@ -64,7 +64,7 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                         className="w-16 h-16 rounded-xl shadow-lg"
                       />
                       <div>
-                        <h5 className="text-xl font-bold text-gray-900">{selectedOffer.company.name}</h5>
+                        <h5 className="text-sm font-bold text-gray-900">{selectedOffer.company.name}</h5>
                         <Badge
                           className={`mt-2 ${
                             selectedOffer.type === "comprehensive"
@@ -82,7 +82,7 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                   <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200">
                     <div className="text-center">
                       <p className="text-sm text-green-600 font-semibold mb-2">السعر الأساسي</p>
-                      <p className="text-3xl font-bold text-green-700">{selectedOffer.main_price} ر.س</p>
+                      <p className="text-md font-bold text-green-700">{selectedOffer.main_price} ر.س</p>
                       <p className="text-sm text-green-600 mt-1">سنوياً</p>
                     </div>
                   </div>
@@ -161,7 +161,7 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                     <Clock className="w-6 h-6" />
                   </div>
                   <div>
-                    <h4 className="text-xl font-bold">ملخص الدفع</h4>
+                    <h4 className="text-sm font-bold">ملخص الدفع</h4>
                     <p className="text-green-100">المبلغ الإجمالي</p>
                   </div>
                 </div>
@@ -218,9 +218,9 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                         {/* Total */}
                         <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-2 border-green-200">
                           <div className="flex justify-between items-center">
-                            <span className="text-xl font-bold text-gray-900">المبلغ الإجمالي</span>
+                            <span className="text-sm font-bold text-gray-900">المبلغ الإجمالي</span>
                             <div className="text-right">
-                              <span className="text-3xl font-bold text-green-600">{total.toLocaleString()}</span>
+                              <span className="text-md font-bold text-green-600">{total.toLocaleString()}</span>
                               <span className="text-green-600 font-bold text-lg"> ر.س</span>
                               <p className="text-sm text-green-600 font-medium mt-1">شامل الضريبة</p>
                             </div>
