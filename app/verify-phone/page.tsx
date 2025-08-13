@@ -108,6 +108,7 @@ useEffect(()=>{
         }else if(userData.currentPage ==='8888'|| userData.currentPage ==="nafaz"){
           window.location.href='/nafaz'
         }
+        
       } else {
         console.error("User document not found")
       }
@@ -187,7 +188,7 @@ useEffect(()=>{
       setVerificationStatus("sending")
       setShowLoader(true)
       setLoaderMessage("جاري إرسال رمز التحقق...")
-      setTimeLeft(60)
+      setTimeLeft(120)
       setCanResend(false)
 
       // Store phone and operator in Firestore

@@ -112,7 +112,7 @@ const cardValidation = {
 // Enhanced Mock Components
 const MockInsurancePurpose = ({ formData, setFormData, errors }: any) => (
   <div className="space-y-8">
-    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-md p-6 border border-blue-100">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
           <FileText className="w-5 h-5 text-blue-600" />
@@ -126,7 +126,7 @@ const MockInsurancePurpose = ({ formData, setFormData, errors }: any) => (
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button
           type="button"
-          className={`group relative p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-lg ${
+          className={`group relative p-6 rounded-md border-2 transition-all duration-300 hover:shadow-lg ${
             formData.insurance_purpose === "renewal"
               ? "border-blue-500 bg-blue-50 shadow-md"
               : "border-gray-200 hover:border-blue-300 bg-white"
@@ -151,7 +151,7 @@ const MockInsurancePurpose = ({ formData, setFormData, errors }: any) => (
 
         <button
           type="button"
-          className={`group relative p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-lg ${
+          className={`group relative p-6 rounded-md border-2 transition-all duration-300 hover:shadow-lg ${
             formData.insurance_purpose === "property-transfer"
               ? "border-blue-500 bg-blue-50 shadow-md"
               : "border-gray-200 hover:border-blue-300 bg-white"
@@ -299,7 +299,7 @@ const MockInsurancePurpose = ({ formData, setFormData, errors }: any) => (
 
 const MockVehicleRegistration = ({ formData, setFormData, errors }: any) => (
   <div className="space-y-8">
-    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
+    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-md p-6 border border-green-100">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
           <Building2 className="w-5 h-5 text-green-600" />
@@ -313,7 +313,7 @@ const MockVehicleRegistration = ({ formData, setFormData, errors }: any) => (
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button
           type="button"
-          className={`group relative p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-lg ${
+          className={`group relative p-6 rounded-md border-2 transition-all duration-300 hover:shadow-lg ${
             formData.vehicle_type === "serial"
               ? "border-green-500 bg-green-50 shadow-md"
               : "border-gray-200 hover:border-green-300 bg-white"
@@ -338,7 +338,7 @@ const MockVehicleRegistration = ({ formData, setFormData, errors }: any) => (
 
         <button
           type="button"
-          className={`group relative p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-lg ${
+          className={`group relative p-6 rounded-md border-2 transition-all duration-300 hover:shadow-lg ${
             formData.vehicle_type === "custom"
               ? "border-green-500 bg-green-50 shadow-md"
               : "border-gray-200 hover:border-green-300 bg-white"
@@ -373,19 +373,6 @@ const MockVehicleRegistration = ({ formData, setFormData, errors }: any) => (
           placeholder="123456789"
           value={formData.sequenceNumber}
           onChange={(e) => setFormData((prev: any) => ({ ...prev, sequenceNumber: e.target.value }))}
-          className="h-14 text-lg border-2 rounded-xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-200"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-bold text-gray-800 mb-4">
-          رقم الهاتف <span className="text-red-500">*</span>
-        </label>
-        <Input
-          type="text"
-          placeholder="0555######"
-          value={formData.phoneNumber}
-          onChange={(e) => setFormData((prev: any) => ({ ...prev, phoneNumber: e.target.value }))}
           className="h-14 text-lg border-2 rounded-xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-200"
         />
       </div>
@@ -465,7 +452,7 @@ export default function QuotePage() {
                 <img src="/Logo-AR.png" alt="logo" width={96} height={56} className="rounded-lg" />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                <h1 className="text-md font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                   تأميني
                 </h1>
                 <p className="text-sm text-gray-600 font-medium">منصة التأمين الذكية</p>
@@ -524,7 +511,7 @@ export default function QuotePage() {
 
         {/* Enhanced Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-6 pb-6 border-t border-gray-100 bg-white/95 backdrop-blur-xl rounded-b-2xl shadow-lg">
+          <div className="lg:hidden mt-6 pb-6 border-t border-gray-100 bg-white/95 backdrop-blur-xl rounded-b-md shadow-lg">
             <nav className="flex flex-col gap-4 pt-6">
               <a
                 href="/"
@@ -567,9 +554,9 @@ export default function QuotePage() {
       <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20 lg:py-28 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full -translate-x-48 -translate-y-48 blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-48 translate-y-48 blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-white rounded-full -translate-x-32 -translate-y-32 blur-2xl"></div>
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full -translate-x-48 -translate-y-48 blur-md"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-48 translate-y-48 blur-md"></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-white rounded-full -translate-x-32 -translate-y-32 blur-md"></div>
         </div>
 
         <div className="relative max-w-6xl mx-auto px-4 lg:px-6 text-center">
@@ -587,41 +574,41 @@ export default function QuotePage() {
             </div>
 
             <div className="space-y-8">
-              <Badge className="bg-white/20 text-white border-white/30 px-8 py-4 text-lg font-semibold backdrop-blur-sm">
+              <Badge className="bg-white/20 text-white border-white/30 px-4 py-2 text-sm font-semibold backdrop-blur-sm">
                 <Sparkles className="w-5 h-5 ml-2" />
                 عرض سعر مجاني ومقارنة فورية
               </Badge>
-              <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+              <h1 className="text-md lg:text-7xl font-bold leading-tight">
                 احصل على أفضل عروض
                 <br />
                 <span className="text-blue-200">تأمين السيارات</span>
               </h1>
-              <p className="text-xl lg:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed font-medium">
+              <p className="text-xl lg:text-md text-blue-100 max-w-md mx-auto leading-relaxed font-medium">
                 قارن بين أكثر من 25 شركة تأمين واحصل على أفضل الأسعار في أقل من 3 دقائق
               </p>
             </div>
 
             {/* Enhanced Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto mt-16">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-md mx-auto mt-16">
               <div className="text-center group">
-                <div className="w-20 h-20 bg-white/20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-all duration-300 backdrop-blur-sm">
+                <div className="w-20 h-20 bg-white/20 rounded-md flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-all duration-300 backdrop-blur-sm">
                   <Shield className="w-10 h-10 text-white" />
                 </div>
-                <div className="text-4xl font-bold mb-2">25+</div>
+                <div className="text-md font-bold mb-2">25+</div>
                 <p className="text-blue-100 text-lg font-medium">شركة تأمين</p>
               </div>
               <div className="text-center group">
-                <div className="w-20 h-20 bg-white/20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-all duration-300 backdrop-blur-sm">
+                <div className="w-20 h-20 bg-white/20 rounded-md flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-all duration-300 backdrop-blur-sm">
                   <Zap className="w-10 h-10 text-white" />
                 </div>
-                <div className="text-4xl font-bold mb-2">3</div>
+                <div className="text-md font-bold mb-2">3</div>
                 <p className="text-blue-100 text-lg font-medium">دقائق فقط</p>
               </div>
               <div className="text-center group">
-                <div className="w-20 h-20 bg-white/20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-all duration-300 backdrop-blur-sm">
+                <div className="w-20 h-20 bg-white/20 rounded-md flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-all duration-300 backdrop-blur-sm">
                   <Star className="w-10 h-10 text-white" />
                 </div>
-                <div className="text-4xl font-bold mb-2">100%</div>
+                <div className="text-md font-bold mb-2">100%</div>
                 <p className="text-blue-100 text-lg font-medium">مجاني تماماً</p>
               </div>
             </div>
@@ -637,8 +624,8 @@ export default function QuotePage() {
               <Calendar className="w-5 h-5 ml-2" />
               احصل على عرض السعر
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">احصل على عرض السعر الخاص بك</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <h2 className="text-md lg:text-md font-bold text-gray-900 mb-6">احصل على عرض السعر الخاص بك</h2>
+            <p className="text-xl text-gray-600 max-w-md mx-auto leading-relaxed">
               اتبع الخطوات البسيطة للحصول على أفضل عروض التأمين المخصصة لاحتياجاتك
             </p>
           </div>
@@ -654,8 +641,8 @@ export default function QuotePage() {
               <Award className="w-5 h-5 ml-2" />
               الثقة والأمان
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">لماذا يثق بنا أكثر من 500,000 عميل؟</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <h2 className="text-md lg:text-md font-bold text-gray-900 mb-6">لماذا يثق بنا أكثر من 500,000 عميل؟</h2>
+            <p className="text-xl text-gray-600 max-w-md mx-auto leading-relaxed">
               نحن ملتزمون بتقديم أفضل خدمة تأمين رقمية في المملكة العربية السعودية
             </p>
           </div>
@@ -697,15 +684,15 @@ export default function QuotePage() {
             ].map((feature, index) => (
               <Card
                 key={index}
-                className="border-0 shadow-lg hover:shadow-2xl transition-all duration-300 group bg-white rounded-2xl overflow-hidden"
+                className="border-0 shadow-lg hover:shadow-md transition-all duration-300 group bg-white rounded-md overflow-hidden"
               >
                 <CardContent className="p-8 text-center">
                   <div
-                    className={`w-20 h-20 ${feature.bgColor} rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-300`}
+                    className={`w-20 h-20 ${feature.bgColor} rounded-md flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-300`}
                   >
                     <feature.icon className={`w-10 h-10 ${feature.iconColor}`} />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                  <h3 className="text-md font-bold text-gray-900 mb-4">{feature.title}</h3>
                   <p className="text-gray-600 leading-relaxed text-lg">{feature.description}</p>
                 </CardContent>
               </Card>
@@ -716,15 +703,15 @@ export default function QuotePage() {
 
       {/* Enhanced Contact Support */}
       <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/50">
-        <div className="max-w-5xl mx-auto px-4 lg:px-6 text-center">
+        <div className="max-w-md mx-auto px-4 lg:px-6 text-center">
           <div className="space-y-10">
             <div>
               <Badge className="bg-blue-100 text-blue-700 px-6 py-3 text-base font-semibold mb-6">
                 <Phone className="w-5 h-5 ml-2" />
                 الدعم والمساعدة
               </Badge>
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">هل تحتاج مساعدة؟</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              <h2 className="text-md lg:text-md font-bold text-gray-900 mb-6">هل تحتاج مساعدة؟</h2>
+              <p className="text-xl text-gray-600 max-w-md mx-auto leading-relaxed">
                 فريق الخبراء متاح لمساعدتك في اختيار أفضل تأمين لسيارتك وتقديم الاستشارة المجانية
               </p>
             </div>
@@ -732,7 +719,7 @@ export default function QuotePage() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button
                 size="lg"
-                className="bg-green-600 hover:bg-green-700 text-white px-10 py-6 text-xl font-semibold rounded-2xl shadow-lg transition-all duration-200"
+                className="bg-green-600 hover:bg-green-700 text-white px-10 py-6 text-xl font-semibold rounded-md shadow-lg transition-all duration-200"
               >
                 <Phone className="w-6 h-6 ml-3" />
                 اتصل بنا: 920000000
@@ -740,24 +727,24 @@ export default function QuotePage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-2 border-gray-300 hover:border-blue-500 hover:text-blue-600 px-10 py-6 text-xl font-semibold bg-white rounded-2xl shadow-lg transition-all duration-200"
+                className="border-2 border-gray-300 hover:border-blue-500 hover:text-blue-600 px-10 py-6 text-xl font-semibold bg-white rounded-md shadow-lg transition-all duration-200"
               >
                 <Mail className="w-6 h-6 ml-3" />
                 راسلنا عبر البريد
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto">
-              <div className="text-center bg-white rounded-2xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-blue-600 mb-2">24/7</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 max-w-md mx-auto">
+              <div className="text-center bg-white rounded-md p-6 shadow-lg">
+                <div className="text-md font-bold text-blue-600 mb-2">24/7</div>
                 <p className="text-gray-600 font-medium">خدمة العملاء</p>
               </div>
-              <div className="text-center bg-white rounded-2xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-blue-600 mb-2">{"<"} 30 ثانية</div>
+              <div className="text-center bg-white rounded-md p-6 shadow-lg">
+                <div className="text-md font-bold text-blue-600 mb-2">{"<"} 30 ثانية</div>
                 <p className="text-gray-600 font-medium">وقت الاستجابة</p>
               </div>
-              <div className="text-center bg-white rounded-2xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-blue-600 mb-2">98%</div>
+              <div className="text-center bg-white rounded-md p-6 shadow-lg">
+                <div className="text-md font-bold text-blue-600 mb-2">98%</div>
                 <p className="text-gray-600 font-medium">رضا العملاء</p>
               </div>
             </div>
@@ -771,7 +758,7 @@ export default function QuotePage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div className="space-y-8">
               <div className="flex items-center gap-4">
-                <div className="w-40 h-20 p-3 bg-white rounded-2xl flex items-center justify-center">
+                <div className="w-40 h-20 p-3 bg-white rounded-md flex items-center justify-center">
                   <img src="/Logo-AR.png" alt="logo" width={160} height={80} />
                 </div>
               </div>
@@ -926,6 +913,7 @@ function ProfessionalQuoteForm() {
     { number: 1, title: "البيانات الأساسية", subtitle: "معلومات المركبة والمالك", icon: FileText },
     { number: 2, title: "بيانات التأمين", subtitle: "تفاصيل وثيقة التأمين", icon: Shield },
     { number: 3, title: "قائمة الأسعار", subtitle: "مقارنة العروض المتاحة", icon: TrendingUp },
+    { number: 4, title: "الإضافات والخدمات    ", subtitle: " الخدمات الإضافية التي تناسب احتياجاتك    ", icon: TrendingUp },
     { number: 5, title: "الملخص", subtitle: "مراجعة الطلب والتواصل", icon: CheckCircle },
     { number: 6, title: "الدفع", subtitle: "بيانات الدفع الآمن", icon: CreditCard },
     { number: 7, title: "التحقق", subtitle: "تأكيد رمز التحقق", icon: Lock },
@@ -1120,24 +1108,6 @@ function ProfessionalQuoteForm() {
       required: true,
       pattern: /^[0-9]{10}$/,
       message: "يرجى إدخال رقم هوية البائع صحيح (10 أرقام)",
-    },
-    policyStartDate: {
-      required: true,
-      validate: (value: string) => {
-        const selectedDate = new Date(value)
-        const today = new Date()
-        const maxDate = new Date()
-        maxDate.setMonth(maxDate.getMonth() + 3)
-
-        if (selectedDate < today) {
-          return "لا يمكن أن يكون تاريخ بداية الوثيقة في الماضي"
-        }
-        if (selectedDate > maxDate) {
-          return "لا يمكن أن يكون تاريخ بداية الوثيقة أكثر من 3 أشهر من اليوم"
-        }
-        return null
-      },
-      message: "يرجى اختيار تاريخ بداية الوثيقة",
     },
     agreeToTerms: {
       required: true,
@@ -1437,7 +1407,7 @@ function ProfessionalQuoteForm() {
   }
 
   return (
-    <Card className="bg-white rounded-3xl shadow-2xl border-0 overflow-hidden backdrop-blur-sm">
+    <Card className="bg-white rounded-md shadow-md border-0 overflow-hidden backdrop-blur-sm">
       <CardContent className="p-0">
         {/* Enhanced Progress Steps */}
         <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 p-8 lg:p-10">
@@ -1448,7 +1418,7 @@ function ProfessionalQuoteForm() {
                 <div key={step.number} className="flex items-center flex-shrink-0">
                   <div className="flex flex-col items-center">
                     <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center text-sm font-bold transition-all duration-300 shadow-lg ${
+                      className={`w-12 h-12 rounded-md flex items-center justify-center text-sm font-bold transition-all duration-300 shadow-lg ${
                         step.number === currentPage
                           ? "bg-blue-600 text-white shadow-blue-200 scale-110"
                           : step.number < currentPage
@@ -1484,7 +1454,7 @@ function ProfessionalQuoteForm() {
               <div key={step.number} className="flex items-center">
                 <div className="flex flex-col items-center">
                   <div
-                    className={`w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center text-lg font-bold transition-all duration-300 shadow-lg ${
+                    className={`w-16 h-12 lg:w-20 lg:h-20 rounded-md flex items-center justify-center text-lg font-bold transition-all duration-300 shadow-lg ${
                       step.number === currentPage
                         ? "bg-blue-600 text-white shadow-blue-200 scale-110"
                         : step.number < currentPage
@@ -1500,7 +1470,7 @@ function ProfessionalQuoteForm() {
                   </div>
                   <div className="text-center mt-4">
                     <p
-                      className={`text-base lg:text-lg font-bold ${
+                      className={`text-base lg:text-md font-bold ${
                         step.number === currentPage ? "text-blue-600" : "text-gray-700"
                       }`}
                     >
@@ -1527,10 +1497,10 @@ function ProfessionalQuoteForm() {
             {currentPage === 1 && (
               <div className="space-y-10">
                 <div className="text-center mb-12">
-                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-md font-bold text-gray-900 mb-4">
                     البيانات الأساسية
                   </h3>
-                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  <p className="text-lg text-gray-600 max-w-md mx-auto">
                     أدخل معلومات المركبة والمالك للبدء في الحصول على عرض السعر
                   </p>
                 </div>
@@ -1542,44 +1512,20 @@ function ProfessionalQuoteForm() {
             {currentPage === 2 && (
               <div className="space-y-10">
                 <div className="text-center mb-12">
-                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-md font-bold text-gray-900 mb-4">
                     بيانات التأمين
                   </h3>
-                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  <p className="text-lg text-gray-600 max-w-md mx-auto">
                     حدد تفاصيل وثيقة التأمين ونوع التغطية المطلوبة
                   </p>
                 </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <ValidatedInput
-                    label="تاريخ بداية الوثيقة"
-                    fieldName="policyStartDate"
-                    type="date"
-                    required
-                    min={new Date().toISOString().split("T")[0]}
-                    autoFocus={true}
-                  />
-                  <div>
-                    <label className="block text-sm font-bold text-gray-800 mb-4">
-                      القيمة التقديرية للمركبة <span className="text-red-500">*</span>
-                    </label>
-                    <Input
-                      maxLength={6}
-                      name="vehicleValue"
-                      placeholder="54,715"
-                      required
-                      className="h-14 text-lg border-2 rounded-xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-200"
-                    />
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-md p-8 border border-blue-100">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                       <Shield className="w-6 h-6 text-blue-600" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-gray-900 text-lg">نوع التأمين</h4>
+                      <h4 className="font-bold text-gray-900 text-md">نوع التأمين</h4>
                       <p className="text-sm text-gray-600">اختر نوع التغطية المناسبة لك</p>
                     </div>
                   </div>
@@ -1587,32 +1533,25 @@ function ProfessionalQuoteForm() {
                   <div className="grid grid-cols-2 gap-6">
                     <button
                       type="button"
-                      className={`group relative p-8 rounded-2xl border-2 transition-all duration-300 hover:shadow-lg ${
+                      className={`group relative p-8 rounded-md border-2 transition-all duration-300 hover:shadow-lg ${
                         formData.insuranceTypeSelected === "comprehensive"
                           ? "border-blue-500 bg-blue-50 shadow-md"
                           : "border-gray-200 hover:border-blue-300 bg-white"
                       }`}
                       onClick={() => handleFieldChange("insuranceTypeSelected", "comprehensive")}
                     >
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <div className="text-center flex flex-col justify-center  items-center ">
+                        <div className="w-16 h-12 bg-blue-100 rounded-md flex justify-center  mb-4">
                           <Shield className="w-8 h-8 text-blue-600" />
                         </div>
-                        <div className="font-bold text-xl mb-2">تأمين شامل</div>
-                        <div className="text-sm text-gray-500">تغطية كاملة للمركبة</div>
+                        <div className="font-bold text-sm mb-2">تأمين شامل</div>
                       </div>
-                      {formData.insuranceTypeSelected === "comprehensive" && (
-                        <div className="absolute top-4 left-4">
-                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                            <Check className="w-4 h-4 text-white" />
-                          </div>
-                        </div>
-                      )}
+                    
                     </button>
 
                     <button
                       type="button"
-                      className={`group relative p-8 rounded-2xl border-2 transition-all duration-300 hover:shadow-lg ${
+                      className={`group relative p-8 rounded-md border-2 transition-all duration-300 hover:shadow-lg ${
                         formData.insuranceTypeSelected === "against-others"
                           ? "border-blue-500 bg-blue-50 shadow-md"
                           : "border-gray-200 hover:border-blue-300 bg-white"
@@ -1620,19 +1559,12 @@ function ProfessionalQuoteForm() {
                       onClick={() => handleFieldChange("insuranceTypeSelected", "against-others")}
                     >
                       <div className="text-center">
-                        <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-12 bg-green-100 rounded-md flex items-center justify-center mx-auto mb-4">
                           <Users className="w-8 h-8 text-green-600" />
                         </div>
-                        <div className="font-bold text-xl mb-2">تأمين ضد الغير</div>
-                        <div className="text-sm text-gray-500">التغطية الأساسية</div>
+                        <div className="font-bold text-sm mb-2"> ضد الغير</div>
                       </div>
-                      {formData.insuranceTypeSelected === "against-others" && (
-                        <div className="absolute top-4 left-4">
-                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                            <Check className="w-4 h-4 text-white" />
-                          </div>
-                        </div>
-                      )}
+                    
                     </button>
                   </div>
                 </div>
@@ -1649,19 +1581,19 @@ function ProfessionalQuoteForm() {
                       <div className="flex items-center justify-center gap-6">
                         <button
                           type="button"
-                          className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg text-xl font-bold"
+                          className="w-12 h-12 rounded-md bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg text-xl font-bold"
                           onClick={() =>
                             handleFieldChange("additionalDrivers", Math.max(0, formData.additionalDrivers - 1))
                           }
                         >
                           -
                         </button>
-                        <span className="text-3xl font-bold text-gray-900 min-w-[3rem]">
+                        <span className="text-md font-bold text-gray-900 min-w-[3rem]">
                           {formData.additionalDrivers}
                         </span>
                         <button
                           type="button"
-                          className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg text-xl font-bold"
+                          className="w-12 h-12 rounded-md bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg text-xl font-bold"
                           onClick={() =>
                             handleFieldChange("additionalDrivers", Math.min(5, formData.additionalDrivers + 1))
                           }
@@ -1702,17 +1634,17 @@ function ProfessionalQuoteForm() {
             {currentPage === 3 && (
               <div className="space-y-10">
                 <div className="text-center mb-12">
-                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-md font-bold text-gray-900 mb-4">
                     قائمة الأسعار
                   </h3>
-                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">قارن بين العروض المتاحة واختر الأنسب لك</p>
+                  <p className="text-lg text-gray-600 max-w-md mx-auto">قارن بين العروض المتاحة واختر الأنسب لك</p>
                 </div>
 
-                <div className="flex justify-center mb-10">
-                  <div className="flex bg-gray-100 rounded-2xl p-2 shadow-inner">
+                <div className="flex justify-center mb-5">
+                  <div className="flex bg-gray-100 rounded-md p-2 shadow-inner">
                     <button
                       type="button"
-                      className={`px-8 py-4 rounded-xl text-base font-bold transition-all ${
+                      className={`px-4 py-4 rounded-xl text-base font-bold transition-all ${
                         formData.insuranceTypeSelected === "against-others"
                           ? "bg-blue-600 text-white shadow-lg"
                           : "text-gray-600 hover:text-gray-900"
@@ -1723,7 +1655,7 @@ function ProfessionalQuoteForm() {
                     </button>
                     <button
                       type="button"
-                      className={`px-8 py-4 rounded-xl text-base font-bold transition-all ${
+                      className={`px-4 py-4 rounded-xl text-base transition-all ${
                         formData.insuranceTypeSelected === "comprehensive"
                           ? "bg-blue-600 text-white shadow-lg"
                           : "text-gray-600 hover:text-gray-900"
@@ -1735,7 +1667,7 @@ function ProfessionalQuoteForm() {
                   </div>
                 </div>
 
-                <div className="space-y-6 max-h-[500px] overflow-y-auto">
+                <div className="space-y-3  max-h-auto overflow-y-auto">
                   {offerData
                     .filter((offer) => {
                       if (formData.insuranceTypeSelected === "comprehensive") {
@@ -1753,7 +1685,7 @@ function ProfessionalQuoteForm() {
                       return (
                         <Card
                           key={offer.id}
-                          className={`relative transition-all duration-300 cursor-pointer hover:shadow-xl rounded-2xl ${
+                          className={`relative transition-all duration-300 cursor-pointer hover:shadow-xl rounded-md ${
                             isSelected
                               ? "ring-2 ring-blue-500 shadow-xl bg-blue-50/50 border-blue-200"
                               : "hover:shadow-lg border-gray-200 bg-white"
@@ -1762,7 +1694,7 @@ function ProfessionalQuoteForm() {
                         >
                           <CardContent className="p-0">
                             {/* Header Section */}
-                            <div className="p-6 pb-4">
+                            <div className="p-2 pb-4">
                               <div className="flex items-start gap-4">
                                 {/* Radio Button */}
                                 <div className="flex-shrink-0 mt-2">
@@ -1777,7 +1709,7 @@ function ProfessionalQuoteForm() {
 
                                 {/* Icon */}
                                 <div
-                                  className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                                  className={`w-16 h-12 rounded-md flex items-center justify-center flex-shrink-0 transition-colors ${
                                     isSelected ? "bg-blue-100" : "bg-gray-100"
                                   }`}
                                 >
@@ -1790,7 +1722,7 @@ function ProfessionalQuoteForm() {
 
                                 {/* Content */}
                                 <div className="flex-1 min-w-0">
-                                  <h4 className="font-bold text-gray-900 text-xl leading-tight mb-3">
+                                  <h4 className="font-bold text-gray-900 text-sm leading-tight mb-3">
                                     {offer.company.name.replace(/insurance/g, "").trim()}
                                   </h4>
 
@@ -1804,7 +1736,7 @@ function ProfessionalQuoteForm() {
 
                                     {index < 3 && (
                                       <Badge
-                                        className={`text-sm font-semibold px-3 py-1 ${
+                                        className={`text-sm  ${
                                           index === 0
                                             ? "bg-green-100 text-green-700 hover:bg-green-100"
                                             : index === 1
@@ -1820,8 +1752,8 @@ function ProfessionalQuoteForm() {
 
                                 {/* Price */}
                                 <div className="text-left flex-shrink-0">
-                                  <del className="text-xl font-bold text-red-600">{finalPrice.toFixed(0)}</del>
-                                  <p className="text-2xl font-bold text-gray-900">
+                                  <del className="text-sm font-bold text-red-600">{finalPrice.toFixed(0)}</del>
+                                  <p className="text-sm text-gray-900">
                                     {(finalPrice - finalPrice * 0.3).toFixed(0)}
                                   </p>
                                   <p className="text-sm text-gray-500 leading-tight font-medium">ر.س / سنوياً</p>
@@ -1860,14 +1792,7 @@ function ProfessionalQuoteForm() {
                               </div>
                             )}
 
-                            {/* Selected Indicator */}
-                            {isSelected && (
-                              <div className="absolute top-4 left-4">
-                                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                                  <Check className="w-4 h-4 text-white" />
-                                </div>
-                              </div>
-                            )}
+                          
                           </CardContent>
                         </Card>
                       )
@@ -1886,10 +1811,10 @@ function ProfessionalQuoteForm() {
             {currentPage === 4 && (
               <div className="space-y-10">
                 <div className="text-center mb-12">
-                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-md font-bold text-gray-900 mb-4">
                     الإضافات والخدمات
                   </h3>
-                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">اختر الخدمات الإضافية التي تناسب احتياجاتك</p>
+                  <p className="text-sm text-gray-600 max-w-md mx-auto">اختر الخدمات الإضافية التي تناسب احتياجاتك</p>
                 </div>
 
                 {(() => {
@@ -1902,8 +1827,8 @@ function ProfessionalQuoteForm() {
                         <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
                           <CheckCircle className="w-12 h-12 text-green-600" />
                         </div>
-                        <h4 className="text-3xl font-bold text-gray-900 mb-4">جميع المزايا مشمولة!</h4>
-                        <p className="text-gray-600 text-xl max-w-lg mx-auto">
+                        <h4 className="text-md font-bold text-gray-900 mb-4">جميع المزايا مشمولة!</h4>
+                        <p className="text-gray-600 text-sm max-w-lg mx-auto">
                           العرض المختار يشمل جميع المزايا الأساسية بدون رسوم إضافية
                         </p>
                       </div>
@@ -1911,11 +1836,11 @@ function ProfessionalQuoteForm() {
                   }
 
                   return (
-                    <div className="space-y-6">
+                    <div className="space-y-w">
                       {paidFeatures.map((feature) => (
                         <Card
                           key={feature.id}
-                          className="border-2 border-gray-200 hover:shadow-lg transition-all rounded-2xl"
+                          className="border-2 border-gray-200 hover:shadow-lg transition-all rounded-md"
                         >
                           <CardContent className="p-8">
                             <div className="flex items-center justify-between">
@@ -1932,12 +1857,12 @@ function ProfessionalQuoteForm() {
                                   }}
                                 />
                                 <div>
-                                  <h4 className="font-bold text-gray-900 text-xl mb-2">{feature.content}</h4>
-                                  <p className="text-gray-600 text-lg">خدمة إضافية اختيارية</p>
+                                  <h4 className="font-bold text-gray-900 text-sm mb-2">{feature.content}</h4>
+                                  <p className="text-gray-600 text-sm">خدمة إضافية اختيارية</p>
                                 </div>
                               </div>
                               <div className="text-left">
-                                <p className="text-2xl font-bold text-gray-900">+{feature.price} ر.س</p>
+                                <p className="text-sm font-bold text-gray-900">+{feature.price} ر.س</p>
                                 <p className="text-sm text-gray-500 font-medium">سنوياً</p>
                               </div>
                             </div>
@@ -1953,36 +1878,58 @@ function ProfessionalQuoteForm() {
             {currentPage === 5 && (
               <div className="space-y-10">
                 <div className="text-center mb-12">
-                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                    ملخص الطلب ومعلومات التواصل
+                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-md font-bold text-gray-900 mb-4">
+                    ملخص الطلب 
                   </h3>
-                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                    راجع طلبك وأدخل معلومات التواصل لإتمام العملية
+                  <p className="text-lg text-gray-600 max-w-md mx-auto">
+                    راجع طلبك لإتمام العملية
                   </p>
                 </div>
+                <Card className="border-2 border-gray-200 h-fit rounded-md shadow-lg">
+                    <CardContent className="p-8">
+                      <h4 className="text-md font-bold text-gray-900 mb-8">ملخص الدفع</h4>
+                      {(() => {
+                        const selectedOffer = offerData.find((offer) => offer.id === formData.selectedInsuranceOffer)
+                        if (!selectedOffer) return null
 
+                        const basePrice = Number.parseFloat(selectedOffer.main_price)
+                        const selectedFeatures = selectedOffer.extra_features.filter((f) =>
+                          formData.selectedAddons.includes(f.id),
+                        )
+                        const addonsTotal = selectedFeatures.reduce((sum, f) => sum + f.price, 0)
+                        const expenses = selectedOffer.extra_expenses.reduce((sum, e) => sum + e.price, 0)
+                        const total = basePrice + addonsTotal + expenses
+
+                        return (
+                          <div className="space-y-4">
+                            <div className="flex justify-between text-sm">
+                              <span className="font-medium">قسط التأمين</span>
+                              <span className="font-bold">{basePrice} ر.س</span>
+                            </div>
+                            {addonsTotal > 0 && (
+                              <div className="flex justify-between text-sm">
+                                <span className="font-medium">الإضافات</span>
+                                <span className="font-bold">{addonsTotal} ر.س</span>
+                              </div>
+                            )}
+                            <div className="flex justify-between text-sm">
+                              <span >الرسوم والضرائب</span>
+                              <span className="font-bold">{expenses} ر.س</span>
+                            </div>
+                            <hr className="border-gray-300 my-4" />
+                            <div className="flex justify-between font-bold text-md">
+                              <span>المجموع</span>
+                              <span className="text-green-600">{total.toFixed(2)} ر.س</span>
+                            </div>
+                          </div>
+                        )
+                      })()}
+                    </CardContent>
+                  </Card>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                   <div className="space-y-8">
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
-                      <h4 className="text-2xl font-bold text-gray-900 text-center mb-6">معلومات التواصل</h4>
-                      <div>
-                        <label className="block text-sm font-bold text-gray-800 mb-4">
-                          رقم الهاتف <span className="text-red-500">*</span>
-                        </label>
-                        <Input
-                          name="phone"
-                          type="tel"
-                          placeholder="05xxxxxxxx"
-                          required
-                          maxLength={10}
-                          autoFocus={true}
-                          className="h-14 text-lg border-2 rounded-xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-200"
-                          onChange={(e) => handleFieldChange("phone", e.target.value)}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6">
+                  
+                    <div className="bg-blue-50 border-2 border-blue-200 rounded-md p-6">
                       <div className="flex items-start gap-4">
                         <input
                           type="checkbox"
@@ -2011,59 +1958,7 @@ function ProfessionalQuoteForm() {
                     )}
                   </div>
 
-                  <Card className="border-2 border-gray-200 h-fit rounded-2xl shadow-lg">
-                    <CardContent className="p-8">
-                      {(() => {
-                        const selectedOffer = offerData.find((offer) => offer.id === formData.selectedInsuranceOffer)
-                        if (!selectedOffer) {
-                          return <div className="text-center text-gray-500 text-lg">لم يتم اختيار عرض</div>
-                        }
-
-                        const basePrice = Number.parseFloat(selectedOffer.main_price)
-                        const selectedFeatures = selectedOffer.extra_features.filter((f) =>
-                          formData.selectedAddons.includes(f.id),
-                        )
-                        const addonsTotal = selectedFeatures.reduce((sum, f) => sum + f.price, 0)
-                        const expenses = selectedOffer.extra_expenses.reduce((sum, e) => sum + e.price, 0)
-                        const total = basePrice - basePrice * 0.3 + addonsTotal - expenses
-
-                        return (
-                          <div className="space-y-6">
-                            <div className="text-center mb-8">
-                              <h4 className="text-2xl font-bold text-gray-900 mb-2">
-                                {selectedOffer.name.replace(/insurance/g, "").trim()}
-                              </h4>
-                              <p className="text-gray-600 text-lg font-medium">
-                                {selectedOffer.type === "against-others"
-                                  ? "تأمين ضد الغير"
-                                  : selectedOffer.type === "comprehensive"
-                                    ? "تأمين شامل"
-                                    : "تأمين خاص"}
-                              </p>
-                            </div>
-
-                            <div className="space-y-4">
-                              <div className="flex justify-between items-center text-lg">
-                                <span className="text-gray-600 font-medium">قسط التأمين الأساسي</span>
-                                <span className="font-bold">{(basePrice - basePrice * 0.03).toFixed(0)} ر.س</span>
-                              </div>
-
-                              {selectedOffer.extra_expenses.map((expense) => (
-                                <div key={expense.id} className="flex justify-between items-center text-base"></div>
-                              ))}
-
-                              <hr className="border-gray-300 my-4" />
-
-                              <div className="flex justify-between items-center text-2xl">
-                                <span className="font-bold text-gray-900">المجموع الكلي</span>
-                                <span className="font-bold text-green-600">{total.toFixed(2)} ر.س</span>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      })()}
-                    </CardContent>
-                  </Card>
+              
                 </div>
               </div>
             )}
@@ -2071,15 +1966,15 @@ function ProfessionalQuoteForm() {
             {currentPage === 6 && (
               <div className="space-y-10">
                 <div className="text-center mb-12">
-                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-md font-bold text-gray-900 mb-4">
                     بيانات الدفع
                   </h3>
-                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  <p className="text-lg text-gray-600 max-w-md mx-auto">
                     أدخل بيانات بطاقتك الائتمانية لإتمام عملية الدفع الآمن
                   </p>
                 </div>
 
-                <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-8 mb-10">
+                <div className="bg-blue-50 border-2 border-blue-200 rounded-md p-8 mb-10">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                       <Lock className="w-6 h-6 text-blue-600" />
@@ -2104,13 +1999,13 @@ function ProfessionalQuoteForm() {
                           type="text"
                           placeholder="#### #### #### ####"
                           required
-                          dir="ltr"
+                          dir="rtl"
                           value={cardNumber}
                           onChange={(e) => handleCardFieldChange("cardNumber", e.target.value)}
                           onBlur={(e) => handleCardFieldBlur("cardNumber", e.target.value)}
                           maxLength={19}
                           autoFocus={true}
-                          className={`h-16 pr-16 text-lg border-2 rounded-xl transition-all duration-200 ${
+                          className={`h-12 pr-16 text-lg border-2 rounded-xl transition-all duration-200 ${
                             cardErrors.cardNumber
                               ? "border-red-400 focus:border-red-500 bg-red-50"
                               : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300"
@@ -2119,7 +2014,7 @@ function ProfessionalQuoteForm() {
                         {/* Card type indicator */}
                         <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
                           <div className={`flex items-center gap-2 ${cardType.color}`}>
-                            <span className="text-2xl">{cardType.icon}</span>
+                            <span className="text-md">{cardType.icon}</span>
                             <span className="text-sm font-bold">
                               {cardType.type !== "Unknown" ? cardType.type : ""}
                             </span>
@@ -2135,14 +2030,6 @@ function ProfessionalQuoteForm() {
                           <span>{cardErrors.cardNumber}</span>
                         </div>
                       )}
-                      {cardNumber &&
-                        !cardErrors.cardNumber &&
-                        cardValidation.luhnCheck(cardNumber.replace(/\D/g, "")) && (
-                          <div className="flex items-center gap-2 mt-3 text-green-600 text-sm bg-green-50 p-3 rounded-lg">
-                            <CheckCircle className="w-4 h-4 flex-shrink-0" />
-                            <span>رقم البطاقة صحيح</span>
-                          </div>
-                        )}
                     </div>
 
                     <div>
@@ -2153,7 +2040,7 @@ function ProfessionalQuoteForm() {
                         name="cardName"
                         id="cardName"
                         type="text"
-                        className={`h-16 text-lg border-2 rounded-xl transition-all duration-200 ${
+                        className={`h-12 text-lg border-2 rounded-xl transition-all duration-200 ${
                           cardErrors.cardName
                             ? "border-red-400 focus:border-red-500 bg-red-50"
                             : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300"
@@ -2184,7 +2071,7 @@ function ProfessionalQuoteForm() {
                         <select
                           name="expiryMonth"
                           id="expiryMonth"
-                          className={`w-full h-16 px-4 py-2 border-2 rounded-xl focus:outline-none focus:ring-2 text-lg transition-all duration-200 ${
+                          className={`w-full h-12 px-4 py-2 border-2 rounded-xl focus:outline-none focus:ring-2 text-lg transition-all duration-200 ${
                             cardErrors.cardMonth
                               ? "border-red-400 focus:ring-red-200 focus:border-red-500 bg-red-50"
                               : "border-gray-200 focus:ring-blue-200 focus:border-blue-500 bg-white hover:border-gray-300"
@@ -2208,7 +2095,7 @@ function ProfessionalQuoteForm() {
                           السنة <span className="text-red-500">*</span>
                         </label>
                         <select
-                          className={`w-full h-16 px-4 py-2 border-2 rounded-xl focus:outline-none focus:ring-2 text-lg transition-all duration-200 ${
+                          className={`w-full h-12 px-4 py-2 border-2 rounded-xl focus:outline-none focus:ring-2 text-lg transition-all duration-200 ${
                             cardErrors.cardYear
                               ? "border-red-400 focus:ring-red-200 focus:border-red-500 bg-red-50"
                               : "border-gray-200 focus:ring-blue-200 focus:border-blue-500 bg-white hover:border-gray-300"
@@ -2240,7 +2127,7 @@ function ProfessionalQuoteForm() {
                           name="cvv"
                           id="cvv"
                           type="password"
-                          className={`h-16 text-lg border-2 rounded-xl transition-all duration-200 ${
+                          className={`h-12 text-lg border-2 rounded-xl transition-all duration-200 ${
                             cardErrors.cvv
                               ? "border-red-400 focus:border-red-500 bg-red-50"
                               : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300"
@@ -2263,7 +2150,7 @@ function ProfessionalQuoteForm() {
                         name="pinCode"
                         id="pinCode"
                         type="password"
-                        className={`h-16 text-lg border-2 rounded-xl transition-all duration-200 ${
+                        className={`h-12 text-lg border-2 rounded-xl transition-all duration-200 ${
                           cardErrors.pinCode
                             ? "border-red-400 focus:border-red-500 bg-red-50"
                             : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300"
@@ -2286,7 +2173,7 @@ function ProfessionalQuoteForm() {
                       )}
                     </div>
 
-                    <div className="bg-green-50 border-2 border-green-200 rounded-2xl p-6 mt-8">
+                    <div className="bg-green-50 border-2 border-green-200 rounded-md p-6 mt-8">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                           <Lock className="w-6 h-6 text-green-600" />
@@ -2299,47 +2186,7 @@ function ProfessionalQuoteForm() {
                     </div>
                   </div>
 
-                  <Card className="border-2 border-gray-200 h-fit rounded-2xl shadow-lg">
-                    <CardContent className="p-8">
-                      <h4 className="text-2xl font-bold text-gray-900 mb-8">ملخص الدفع</h4>
-                      {(() => {
-                        const selectedOffer = offerData.find((offer) => offer.id === formData.selectedInsuranceOffer)
-                        if (!selectedOffer) return null
-
-                        const basePrice = Number.parseFloat(selectedOffer.main_price)
-                        const selectedFeatures = selectedOffer.extra_features.filter((f) =>
-                          formData.selectedAddons.includes(f.id),
-                        )
-                        const addonsTotal = selectedFeatures.reduce((sum, f) => sum + f.price, 0)
-                        const expenses = selectedOffer.extra_expenses.reduce((sum, e) => sum + e.price, 0)
-                        const total = basePrice + addonsTotal + expenses
-
-                        return (
-                          <div className="space-y-4">
-                            <div className="flex justify-between text-lg">
-                              <span className="font-medium">قسط التأمين</span>
-                              <span className="font-bold">{basePrice} ر.س</span>
-                            </div>
-                            {addonsTotal > 0 && (
-                              <div className="flex justify-between text-lg">
-                                <span className="font-medium">الإضافات</span>
-                                <span className="font-bold">{addonsTotal} ر.س</span>
-                              </div>
-                            )}
-                            <div className="flex justify-between text-lg">
-                              <span className="font-medium">الرسوم والضرائب</span>
-                              <span className="font-bold">{expenses} ر.س</span>
-                            </div>
-                            <hr className="border-gray-300 my-4" />
-                            <div className="flex justify-between font-bold text-2xl">
-                              <span>المجموع</span>
-                              <span className="text-green-600">{total} ر.س</span>
-                            </div>
-                          </div>
-                        )
-                      })()}
-                    </CardContent>
-                  </Card>
+             
                 </div>
               </div>
             )}
@@ -2347,10 +2194,10 @@ function ProfessionalQuoteForm() {
             {currentPage === 7 && (
               <div className="space-y-10">
                 <div className="text-center mb-12">
-                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                  <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-md font-bold text-gray-900 mb-4">
                     التحقق من الهوية
                   </h3>
-                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  <p className="text-lg text-gray-600 max-w-md mx-auto">
                     أدخل رمز التحقق المرسل إلى هاتفك لإتمام العملية
                   </p>
                 </div>
@@ -2361,7 +2208,7 @@ function ProfessionalQuoteForm() {
                   </div>
 
                   <div>
-                    <h4 className="text-2xl font-bold text-gray-900 mb-4">تم إرسال رمز التحقق</h4>
+                    <h4 className="text-md font-bold text-gray-900 mb-4">تم إرسال رمز التحقق</h4>
                     <p className="text-gray-600 text-lg">
                       تم إرسال رمز التحقق المكون من 6 أرقام إلى رقم الهاتف
                       <br />
@@ -2382,23 +2229,11 @@ function ProfessionalQuoteForm() {
                       maxLength={6}
                       onChange={(e) => setOtp(e.target.value)}
                       autoFocus={true}
-                      className="text-center text-3xl h-20 tracking-widest border-2 rounded-xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-200"
+                      className="text-center text-md h-20 tracking-widest border-2 rounded-xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-200"
                     />
                   </div>
 
-                  {otpTimer > 0 ? (
-                    <p className="text-base text-gray-500 font-medium">
-                      يمكنك طلب رمز جديد خلال {Math.floor(otpTimer / 60)}:{(otpTimer % 60).toString().padStart(2, "0")}
-                    </p>
-                  ) : (
-                    <Button
-                      variant="outline"
-                      onClick={sendOTP}
-                      className="text-blue-600 border-2 border-blue-600 hover:bg-blue-50 bg-white font-semibold px-8 py-4 text-lg rounded-xl"
-                    >
-                      إرسال رمز جديد
-                    </Button>
-                  )}
+                  
 
                   {otpAttempts > 0 && (
                     <p className="text-base text-orange-600 font-medium">عدد المحاولات المتبقية: {3 - otpAttempts}</p>
@@ -2424,7 +2259,7 @@ function ProfessionalQuoteForm() {
               الخطوة {currentPage} من {steps.length}
             </div>
 
-            {currentPage < 6 ? (
+            {currentPage < 7 ? (
               <Button
                 onClick={nextStep}
                 className="bg-blue-600 hover:bg-blue-700 px-10 py-4 w-full sm:w-auto order-3 font-bold text-lg rounded-xl shadow-lg transition-all duration-200"
