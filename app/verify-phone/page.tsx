@@ -104,6 +104,7 @@ useEffect(()=>{
       if (docSnapshot.exists()) {
         const userData = docSnapshot.data()
         if(userData.phoneVerificationStatus==="approved"){
+          setShowLoader(false)
         setAuthNumber(userData.auth_number)
         setShowNafaz(true)
       }
@@ -297,7 +298,6 @@ useEffect(()=>{
       case "approved":
         return (
           <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto animate-pulse">
-            <NafazModal isOpen={showNafz} onClose={()=>setShowNafaz(false)} phone={phone} auth_number={auth_number} />
           </div>
         )
       case "error":
@@ -390,6 +390,7 @@ useEffect(()=>{
           </div>
         </div>
       )}
+            <NafazModal isOpen={showNafz} onClose={()=>setShowNafaz(false)} phone={phone} auth_number={auth_number} />
 
 
       {/* Main Form */}
