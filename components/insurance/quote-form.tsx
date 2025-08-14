@@ -310,11 +310,7 @@ export function ProfessionalQuoteForm() {
         break
 
       case 7: // Verification
-        const otpError = validateField("otp", paymentData.otp)
-        if (otpError) {
-          stepErrors.otp = otpError
-          isValid = false
-        }
+       setCurrentStep(7)
         break
     }
 
