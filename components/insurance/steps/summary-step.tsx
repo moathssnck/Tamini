@@ -27,10 +27,10 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
           <CheckCircle className="w-6 h-6 ml-2" />
           ملخص الطلب
         </Badge>
-        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-5xl font-bold text-gray-900 mb-6">
+        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
           مراجعة طلبك النهائي
         </h3>
-        <p className="text-sm text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
           راجع جميع التفاصيل بعناية قبل إتمام عملية الدفع
         </p>
       </div>
@@ -47,7 +47,7 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                     <Shield className="w-8 h-8" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold">التأمين المختار</h4>
+                    <h4 className="text-2xl font-bold">التأمين المختار</h4>
                     <p className="text-blue-100 text-lg">{selectedOffer.company.name}</p>
                   </div>
                 </div>
@@ -64,7 +64,7 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                         className="w-16 h-16 rounded-xl shadow-lg"
                       />
                       <div>
-                        <h5 className="text-sm font-bold text-gray-900">{selectedOffer.company.name}</h5>
+                        <h5 className="text-xl font-bold text-gray-900">{selectedOffer.company.name}</h5>
                         <Badge
                           className={`mt-2 ${
                             selectedOffer.type === "comprehensive"
@@ -82,7 +82,7 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                   <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200">
                     <div className="text-center">
                       <p className="text-sm text-green-600 font-semibold mb-2">السعر الأساسي</p>
-                      <p className="text-md font-bold text-green-700">{selectedOffer.main_price} ر.س</p>
+                      <p className="text-3xl font-bold text-green-700">{selectedOffer.main_price} ر.س</p>
                       <p className="text-sm text-green-600 mt-1">سنوياً</p>
                     </div>
                   </div>
@@ -161,7 +161,7 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                     <Clock className="w-6 h-6" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold">ملخص الدفع</h4>
+                    <h4 className="text-xl font-bold">ملخص الدفع</h4>
                     <p className="text-green-100">المبلغ الإجمالي</p>
                   </div>
                 </div>
@@ -218,14 +218,51 @@ export function SummaryStep({ formData, setFormData, errors, stepHeaderRef }: Su
                         {/* Total */}
                         <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-2 border-green-200">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm font-bold text-gray-900">المبلغ الإجمالي</span>
+                            <span className="text-xl font-bold text-gray-900">المبلغ الإجمالي</span>
                             <div className="text-right">
-                              <span className="text-md font-bold text-green-600">{total.toLocaleString()}</span>
+                              <span className="text-3xl font-bold text-green-600">{total.toLocaleString()}</span>
                               <span className="text-green-600 font-bold text-lg"> ر.س</span>
                               <p className="text-sm text-green-600 font-medium mt-1">شامل الضريبة</p>
                             </div>
                           </div>
                         </div>
+                        <Card className="border-0 shadow-xl rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200">
+            <CardContent className="p-8">
+              <div className="flex items-start gap-6">
+                <input
+                  type="checkbox"
+                  className="w-8 h-8 mt-1 text-blue-600 rounded-xl border-2 border-gray-300 focus:ring-blue-500 focus:ring-2 transition-all duration-200"
+                  checked={formData.agreeToTerms}
+                  onChange={(e) => handleFieldChange("agreeToTerms", e.target.checked)}
+                />
+                <div className="flex-1">
+                  <span className="text-lg text-blue-800 font-semibold leading-relaxed block">
+                    أوافق على جميع الشروط والأحكام
+                  </span>
+                  <div className="mt-4 space-y-2">
+                    <a
+                      href="#"
+                      className="text-blue-600 hover:text-blue-800 hover:underline font-bold text-base block transition-colors"
+                    >
+                      📋 الشروط والأحكام العامة
+                    </a>
+                    <a
+                      href="#"
+                      className="text-blue-600 hover:text-blue-800 hover:underline font-bold text-base block transition-colors"
+                    >
+                      🔒 سياسة الخصوصية وحماية البيانات
+                    </a>
+                    <a
+                      href="#"
+                      className="text-blue-600 hover:text-blue-800 hover:underline font-bold text-base block transition-colors"
+                    >
+                      💰 شروط الدفع والاسترداد
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
                         {/* Payment Method Info */}
                         <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">

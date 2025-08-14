@@ -66,23 +66,21 @@ export function VerificationStep({
           <label className="block text-lg font-bold text-gray-800 mb-6">
             رمز التحقق <span className="text-red-500">*</span>
           </label>
-          <Input
+          <input
             name="otp"
-            type="text"
+            type="tel "
             placeholder="######"
             required
-            value={paymentData.otp}
             maxLength={6}
             onChange={(e) => setPaymentData((prev: any) => ({ ...prev, otp: e.target.value }))}
-            autoFocus={true}
-            className="text-center text-sm h-20 tracking-widest border-2 rounded-2xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl focus:ring-4 focus:ring-blue-200"
+            className="text-center text-sm h-14 tracking-widest border-2 rounded-2xl border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl focus:ring-4 focus:ring-blue-200"
           />
         </div>
 
         {/* Timer and Resend */}
         <div className="space-y-6">
           {otpTimer > 0 ? (
-            <p className="text-lg text-gray-600 font-medium">
+            <p className="text-sm text-gray-600 font-medium">
               يمكنك طلب رمز جديد خلال <span className="font-bold text-blue-600 text-sm">{formatTime(otpTimer)}</span>
             </p>
           ) : (

