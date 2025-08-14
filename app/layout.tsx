@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className} style={{zoom:0.9}}>{children}</body>
     </html>
   )
 }

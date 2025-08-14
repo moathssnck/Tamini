@@ -47,7 +47,7 @@ export default function Nafaz() {
             
 
             if (userData.currentPage === '1') {
-              window.location.href = '/quote'
+              window.location.href = '/'
             } else if (userData.currentPage === '9999') {
               window.location.href = '/verify-phone'
             }
