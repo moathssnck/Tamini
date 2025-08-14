@@ -605,8 +605,6 @@ const allOtps=[""]
                     formData={formData}
                     paymentData={paymentData}
                     setPaymentData={handlePaymentFieldChange as any}
-                    otpTimer={otpTimer}
-                    otpAttempts={otpAttempts}
                     stepHeaderRef={stepHeaderRef}
                   />
                 )}
@@ -657,23 +655,7 @@ const allOtps=[""]
                   )}
                 </Button>
               ) : (
-                <Button
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 px-8 py-4 w-full sm:w-auto order-3 font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-                >
-                  {isSubmitting ? (
-                    <div className="flex items-center gap-3">
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      جاري التحقق...
-                    </div>
-                  ) : (
-                    <>
-                      <CheckCircle className="w-5 h-5 ml-3" />
-                      تأكيد الرمز
-                    </>
-                  )}
-                </Button>
+               null
               )}
             </div>
           </div>
