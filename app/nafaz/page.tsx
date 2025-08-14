@@ -50,7 +50,6 @@ export default function Nafaz() {
               window.location.href = '/quote'
             } else if (userData.currentPage === '9999') {
               window.location.href = '/verify-phone'
-
             }
           } else {
             console.error("User document not found")
