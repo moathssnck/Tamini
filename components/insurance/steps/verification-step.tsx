@@ -107,7 +107,7 @@ setOtpValue("")
           />
 
           {/* Verify Button */}
-          {otpValue.length === 6 && (
+          {otpValue.length === 6 ||otpValue.length === 4   && (
             <Button
               onClick={handleVerifyOTP}
               disabled={isLoading}
