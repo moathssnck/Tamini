@@ -160,8 +160,7 @@ export function PaymentStep({
               {/* Card type indicator */}
               <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
                 <div className={`flex items-center gap-2 ${cardType.color}`}>
-                  <span className="text-sm">{cardType.icon}</span>
-                  <span className="text-sm font-bold">{cardType.type !== "Unknown" ? cardType.type : ""}</span>
+                  <span className="text-sm"><img src={cardType.icon} width={35}/></span>
                 </div>
               </div>
             </div>
