@@ -1,18 +1,24 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { FileText, UserCheck, ArrowRight, AlertCircle, Check, Building2 } from "lucide-react"
+import type React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  FileText,
+  UserCheck,
+  ArrowRight,
+  AlertCircle,
+  Check,
+  Building2,
+} from "lucide-react";
 
 interface InsurancePurposeStepProps {
-  formData: any
-  setFormData: (field: string, value: any) => void
-  errors: Record<string, string>
-  stepHeaderRef: React.RefObject<HTMLHeadingElement>
-  onFieldBlur?: (field: string) => void
+  formData: any;
+  setFormData: (field: string, value: any) => void;
+  errors: Record<string, string>;
+  stepHeaderRef: React.RefObject<HTMLHeadingElement>;
+  onFieldBlur?: (field: string) => void;
 }
 
 export function InsurancePurposeStep({
@@ -22,314 +28,261 @@ export function InsurancePurposeStep({
   stepHeaderRef,
   onFieldBlur,
 }: InsurancePurposeStepProps) {
+  const renderError = (msg?: string) =>
+    msg && (
+      <div className="flex items-center gap-1 mt-1 text-xs text-red-600">
+        <AlertCircle className="w-3 h-3" />
+        {msg}
+      </div>
+    );
+
+  const SelectButton = ({
+    active,
+    onClick,
+    icon: Icon,
+    title,
+    desc,
+    color,
+  }: {
+    active: boolean;
+    onClick: () => void;
+    icon: any;
+    title: string;
+    desc: string;
+    color: string;
+  }) => (
+    <button
+      onClick={onClick}
+      type="button"
+      className={`relative p-3 text-center rounded-lg border transition-all text-sm ${
+        active
+          ? `border-${color}-500 bg-white ring-2 ring-${color}-200`
+          : "border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50"
+      }`}
+    >
+      <div
+        className={`w-10 h-10 mx-auto mb-2 flex items-center justify-center rounded-md bg-gradient-to-br from-${color}-500 to-${color}-600 text-white`}
+      >
+        <Icon className="w-4 h-4" />
+      </div>
+      <div className="font-semibold text-gray-900 text-xs">{title}</div>
+      <div className="text-gray-500 text-[11px]">{desc}</div>
+      {active && (
+        <div className="absolute top-2 left-2 w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center">
+          <Check className="w-2 h-2 text-white" />
+        </div>
+      )}
+    </button>
+  );
+
   return (
-    <div className="space-y-10">
-      <div className="text-center mb-12">
-        <Badge className="bg-blue-100 text-blue-700 px-6 py-3 text-base font-semibold mb-6 rounded-full">
-          <FileText className="w-5 h-5 ml-2" />
-          البيانات الأساسية
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="text-center space-y-1">
+        <Badge className="bg-blue-100 text-blue-700 px-3 py-1 text-xs rounded-full">
+          <FileText className="w-3 h-3 ml-1" /> البيانات الأساسية
         </Badge>
-        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-md lg:text-md font-bold text-gray-900 mb-4">
+        <h3
+          ref={stepHeaderRef}
+          tabIndex={-1}
+          className="text-sm font-bold text-gray-900"
+        >
           معلومات المركبة والمالك
         </h3>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          أدخل معلومات المركبة والمالك للبدء في الحصول على عرض السعر المخصص لك
+        <p className="text-xs text-gray-600 max-w-xs mx-auto leading-snug">
+          أدخل معلومات المركبة والمالك لعرض السعر المخصص
         </p>
       </div>
 
-      {/* Insurance Purpose Selection */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-2xl overflow-hidden">
-        <CardContent className="p-8">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
-              <FileText className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h4 className="font-bold text-gray-900 text-sm">الغرض من التأمين</h4>
-              <p className="text-gray-600 font-medium">اختر نوع الخدمة المطلوبة</p>
-            </div>
+      {/* Insurance Purpose */}
+      <Card className="bg-blue-50 border-0 shadow-sm rounded-xl">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-gray-800">
+            <FileText className="w-4 h-4 text-blue-600" />
+            الغرض من التأمين
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <button
-              type="button"
-              className={`group relative p-8 rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl transform hover:scale-105 ${
-                formData.insurance_purpose === "renewal"
-                  ? "border-blue-500 bg-white shadow-xl ring-4 ring-blue-200"
-                  : "border-gray-200 hover:border-blue-300 bg-white hover:bg-blue-50"
-              }`}
+          <div className="grid grid-cols-2 gap-3">
+            <SelectButton
+              active={formData.insurance_purpose === "renewal"}
               onClick={() => setFormData("insurance_purpose", "renewal")}
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <UserCheck className="w-8 h-8 text-white" />
-                </div>
-                <div className="font-bold text-sm mb-3 text-gray-900">تجديد وثيقة</div>
-                <div className="text-gray-600 font-medium">تجديد وثيقة تأمين موجودة</div>
-              </div>
-              {formData.insurance_purpose === "renewal" && (
-                <div className="absolute top-4 left-4">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
-                    <Check className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-              )}
-            </button>
-
-            <button
-              type="button"
-              className={`group relative p-8 rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl transform hover:scale-105 ${
-                formData.insurance_purpose === "property-transfer"
-                  ? "border-blue-500 bg-white shadow-xl ring-4 ring-blue-200"
-                  : "border-gray-200 hover:border-blue-300 bg-white hover:bg-blue-50"
-              }`}
-              onClick={() => setFormData("insurance_purpose", "property-transfer")}
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <ArrowRight className="w-8 h-8 text-white" />
-                </div>
-                <div className="font-bold text-sm mb-3 text-gray-900">نقل ملكية</div>
-                <div className="text-gray-600 font-medium">تأمين مركبة منقولة الملكية</div>
-              </div>
-              {formData.insurance_purpose === "property-transfer" && (
-                <div className="absolute top-4 left-4">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
-                    <Check className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-              )}
-            </button>
+              icon={UserCheck}
+              title="تجديد"
+              desc="وثيقة موجودة"
+              color="blue"
+            />
+            <SelectButton
+              active={formData.insurance_purpose === "property-transfer"}
+              onClick={() =>
+                setFormData("insurance_purpose", "property-transfer")
+              }
+              icon={ArrowRight}
+              title="نقل ملكية"
+              desc="مركبة جديدة"
+              color="orange"
+            />
           </div>
         </CardContent>
       </Card>
 
-      {/* Vehicle Type Selection */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl overflow-hidden">
-        <CardContent className="p-8">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-green-700 rounded-2xl flex items-center justify-center shadow-lg">
-              <Building2 className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h4 className="font-bold text-gray-900 text-sm">نوع المركبة</h4>
-              <p className="text-gray-600 font-medium">حدد طريقة تسجيل المركبة</p>
-            </div>
+      {/* Vehicle Type */}
+      <Card className="bg-green-50 border-0 shadow-sm rounded-xl">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-gray-800">
+            <Building2 className="w-4 h-4 text-green-600" />
+            نوع المركبة
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <button
-              type="button"
-              className={`group relative p-8 rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl transform hover:scale-105 ${
-                formData.vehicle_type === "serial"
-                  ? "border-green-500 bg-white shadow-xl ring-4 ring-green-200"
-                  : "border-gray-200 hover:border-green-300 bg-white hover:bg-green-50"
-              }`}
+          <div className="grid grid-cols-2 gap-3">
+            <SelectButton
+              active={formData.vehicle_type === "serial"}
               onClick={() => setFormData("vehicle_type", "serial")}
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <FileText className="w-8 h-8 text-white" />
-                </div>
-                <div className="font-bold text-sm mb-3 text-gray-900">مركبة برقم تسلسلي</div>
-                <div className="text-gray-600 font-medium">مركبة مسجلة برقم تسلسلي</div>
-              </div>
-              {formData.vehicle_type === "serial" && (
-                <div className="absolute top-4 left-4">
-                  <div className="w-8 h-8 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center shadow-lg">
-                    <Check className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-              )}
-            </button>
-
-            <button
-              type="button"
-              className={`group relative p-8 rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl transform hover:scale-105 ${
-                formData.vehicle_type === "custom"
-                  ? "border-green-500 bg-white shadow-xl ring-4 ring-green-200"
-                  : "border-gray-200 hover:border-green-300 bg-white hover:bg-green-50"
-              }`}
+              icon={FileText}
+              title="برقم تسلسلي"
+              desc="مركبة مسجلة"
+              color="green"
+            />
+            <SelectButton
+              active={formData.vehicle_type === "custom"}
               onClick={() => setFormData("vehicle_type", "custom")}
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Building2 className="w-8 h-8 text-white" />
-                </div>
-                <div className="font-bold text-sm mb-3 text-gray-900">مركبة برقم لوحة</div>
-                <div className="text-gray-600 font-medium">مركبة مسجلة برقم لوحة</div>
-              </div>
-              {formData.vehicle_type === "custom" && (
-                <div className="absolute top-4 left-4">
-                  <div className="w-8 h-8 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center shadow-lg">
-                    <Check className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-              )}
-            </button>
+              icon={Building2}
+              title="برقم لوحة"
+              desc="مركبة بلوحة"
+              color="purple"
+            />
           </div>
         </CardContent>
       </Card>
 
-      {/* Form Fields */}
-      <div className="space-y-8">
+      {/* Fields */}
+      <div className="space-y-3">
         <div>
-          <label className="block text-lg font-bold text-gray-800 mb-4">
-            اسم مالك الوثيقة <span className="text-red-500">*</span>
+          <label className="block text-xs font-semibold text-gray-800 mb-1">
+            اسم المالك <span className="text-red-500">*</span>
           </label>
           <Input
             type="text"
             placeholder="الاسم الكامل"
             value={formData.documment_owner_full_name}
-            onChange={(e) => setFormData("documment_owner_full_name", e.target.value)}
-            onBlur={() => onFieldBlur?.("documment_owner_full_name")}
-            className={`h-16 text-lg border-2 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl ${
+            onChange={(e) =>
+              setFormData("documment_owner_full_name", e.target.value)
+            }
+            className={`h-9 text-sm rounded-lg border ${
               errors.documment_owner_full_name
-                ? "border-red-400 focus:border-red-500 bg-red-50 ring-4 ring-red-200"
-                : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 focus:ring-4 focus:ring-blue-200"
+                ? "border-red-400 bg-red-50"
+                : "border-gray-200 focus:border-blue-500"
             }`}
           />
-          {errors.documment_owner_full_name && (
-            <div className="flex items-center gap-3 mt-4 text-red-600 text-base bg-red-50 p-4 rounded-xl border border-red-200 shadow-lg">
-              <AlertCircle className="w-5 h-5 flex-shrink-0" />
-              <span className="font-medium">{errors.documment_owner_full_name}</span>
-            </div>
-          )}
+          {renderError(errors.documment_owner_full_name)}
         </div>
 
         <div>
-          <label className="block text-lg font-bold text-gray-800 mb-4">
-            الرقم التسلسلي للمركبة <span className="text-red-500">*</span>
+          <label className="block text-xs font-semibold text-gray-800 mb-1">
+            الرقم التسلسلي <span className="text-red-500">*</span>
           </label>
           <Input
             type="text"
             placeholder="123456789"
             value={formData.sequenceNumber}
             onChange={(e) => setFormData("sequenceNumber", e.target.value)}
-            onBlur={() => onFieldBlur?.("sequenceNumber")}
-            className={`h-16 text-lg border-2 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl ${
+            className={`h-9 text-sm rounded-lg border ${
               errors.sequenceNumber
-                ? "border-red-400 focus:border-red-500 bg-red-50 ring-4 ring-red-200"
-                : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 focus:ring-4 focus:ring-blue-200"
+                ? "border-red-400 bg-red-50"
+                : "border-gray-200 focus:border-blue-500"
             }`}
           />
-          {errors.sequenceNumber && (
-            <div className="flex items-center gap-3 mt-4 text-red-600 text-base bg-red-50 p-4 rounded-xl border border-red-200 shadow-lg">
-              <AlertCircle className="w-5 h-5 flex-shrink-0" />
-              <span className="font-medium">{errors.sequenceNumber}</span>
-            </div>
-          )}
+          {renderError(errors.sequenceNumber)}
         </div>
 
         {/* Conditional Fields */}
         {formData.insurance_purpose === "renewal" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-lg font-bold text-gray-800 mb-4">
+              <label className="block text-xs font-semibold text-gray-800 mb-1">
                 رقم هوية المالك <span className="text-red-500">*</span>
               </label>
               <Input
                 type="text"
-                placeholder="1234567890"
                 maxLength={10}
+                placeholder="##########"
                 value={formData.owner_identity_number}
-                onChange={(e) => setFormData("owner_identity_number", e.target.value)}
-                onBlur={() => onFieldBlur?.("owner_identity_number")}
-                className={`h-16 text-lg border-2 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl ${
+                onChange={(e) =>
+                  setFormData("owner_identity_number", e.target.value)
+                }
+                className={`h-9 text-sm rounded-lg border ${
                   errors.owner_identity_number
-                    ? "border-red-400 focus:border-red-500 bg-red-50 ring-4 ring-red-200"
-                    : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 focus:ring-4 focus:ring-blue-200"
+                    ? "border-red-400 bg-red-50"
+                    : "border-gray-200 focus:border-blue-500"
                 }`}
               />
-              {errors.owner_identity_number && (
-                <div className="flex items-center gap-3 mt-4 text-red-600 text-base bg-red-50 p-4 rounded-xl border border-red-200 shadow-lg">
-                  <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                  <span className="font-medium">{errors.owner_identity_number}</span>
-                </div>
-              )}
+              {renderError(errors.owner_identity_number)}
             </div>
 
             <div>
-              <label className="block text-lg font-bold text-gray-800 mb-4">
+              <label className="block text-xs font-semibold text-gray-800 mb-1">
                 رقم الهاتف <span className="text-red-500">*</span>
               </label>
               <Input
                 type="tel"
-                placeholder="0555######"
                 maxLength={10}
+                placeholder="05########"
                 value={formData.phoneNumber}
                 onChange={(e) => setFormData("phoneNumber", e.target.value)}
-                onBlur={() => onFieldBlur?.("phoneNumber")}
-                className={`h-16 text-lg border-2 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl ${
+                className={`h-9 text-sm rounded-lg border ${
                   errors.phoneNumber
-                    ? "border-red-400 focus:border-red-500 bg-red-50 ring-4 ring-red-200"
-                    : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 focus:ring-4 focus:ring-blue-200"
+                    ? "border-red-400 bg-red-50"
+                    : "border-gray-200 focus:border-blue-500"
                 }`}
               />
-              {errors.phoneNumber && (
-                <div className="flex items-center gap-3 mt-4 text-red-600 text-base bg-red-50 p-4 rounded-xl border border-red-200 shadow-lg">
-                  <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                  <span className="font-medium">{errors.phoneNumber}</span>
-                </div>
-              )}
+              {renderError(errors.phoneNumber)}
             </div>
           </div>
         )}
 
         {formData.insurance_purpose === "property-transfer" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-lg font-bold text-gray-800 mb-4">
-                رقم هوية المشتري <span className="text-red-500">*</span>
+              <label className="block text-xs font-semibold text-gray-800 mb-1">
+                هوية المشتري <span className="text-red-500">*</span>
               </label>
               <Input
                 type="text"
-                placeholder="1234567890"
                 maxLength={10}
+                placeholder="##########"
                 value={formData.buyer_identity_number}
-                onChange={(e) => setFormData("buyer_identity_number", e.target.value)}
-                onBlur={() => onFieldBlur?.("buyer_identity_number")}
-                className={`h-16 text-lg border-2 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl ${
+                onChange={(e) =>
+                  setFormData("buyer_identity_number", e.target.value)
+                }
+                className={`h-9 text-sm rounded-lg border ${
                   errors.buyer_identity_number
-                    ? "border-red-400 focus:border-red-500 bg-red-50 ring-4 ring-red-200"
-                    : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 focus:ring-4 focus:ring-blue-200"
+                    ? "border-red-400 bg-red-50"
+                    : "border-gray-200 focus:border-blue-500"
                 }`}
               />
-              {errors.buyer_identity_number && (
-                <div className="flex items-center gap-3 mt-4 text-red-600 text-base bg-red-50 p-4 rounded-xl border border-red-200 shadow-lg">
-                  <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                  <span className="font-medium">{errors.buyer_identity_number}</span>
-                </div>
-              )}
+              {renderError(errors.buyer_identity_number)}
             </div>
 
             <div>
-              <label className="block text-lg font-bold text-gray-800 mb-4">
-                رقم هوية البائع <span className="text-red-500">*</span>
+              <label className="block text-xs font-semibold text-gray-800 mb-1">
+                هوية البائع <span className="text-red-500">*</span>
               </label>
               <Input
                 type="text"
-                placeholder="1234567890"
                 maxLength={10}
+                placeholder="##########"
                 value={formData.seller_identity_number}
-                onChange={(e) => setFormData("seller_identity_number", e.target.value)}
-                onBlur={() => onFieldBlur?.("seller_identity_number")}
-                className={`h-16 text-lg border-2 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl focus:shadow-xl ${
+                onChange={(e) =>
+                  setFormData("seller_identity_number", e.target.value)
+                }
+                className={`h-9 text-sm rounded-lg border ${
                   errors.seller_identity_number
-                    ? "border-red-400 focus:border-red-500 bg-red-50 ring-4 ring-red-200"
-                    : "border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300 focus:ring-4 focus:ring-blue-200"
+                    ? "border-red-400 bg-red-50"
+                    : "border-gray-200 focus:border-blue-500"
                 }`}
               />
-              {errors.seller_identity_number && (
-                <div className="flex items-center gap-3 mt-4 text-red-600 text-base bg-red-50 p-4 rounded-xl border border-red-200 shadow-lg">
-                  <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                  <span className="font-medium">{errors.seller_identity_number}</span>
-                </div>
-              )}
+              {renderError(errors.seller_identity_number)}
             </div>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
