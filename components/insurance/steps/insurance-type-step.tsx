@@ -1,146 +1,184 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Shield, Users, Star } from "lucide-react"
+import type React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Shield, Users, Star } from "lucide-react";
 
 interface InsuranceTypeStepProps {
-  formData: any
-  setFormData: (data: any) => void
-  errors: Record<string, string>
-  stepHeaderRef: React.RefObject<HTMLHeadingElement>
+  formData: any;
+  setFormData: (data: any) => void;
+  errors: Record<string, string>;
+  stepHeaderRef: React.RefObject<HTMLHeadingElement>;
 }
 
-export function InsuranceTypeStep({ formData, setFormData, errors, stepHeaderRef }: InsuranceTypeStepProps) {
+export function InsuranceTypeStep({
+  formData,
+  setFormData,
+  stepHeaderRef,
+}: InsuranceTypeStepProps) {
   const handleFieldChange = (fieldName: string, value: any) => {
-    setFormData((prev: any) => ({ ...prev, [fieldName]: value }))
-  }
+    setFormData((prev: any) => ({ ...prev, [fieldName]: value }));
+  };
+
+  const SelectButton = ({
+    active,
+    icon: Icon,
+    title,
+    desc,
+    color,
+    value,
+  }: {
+    active: boolean;
+    icon: any;
+    title: string;
+    desc: string;
+    color: string;
+    value: string;
+  }) => (
+    <button
+      onClick={() => handleFieldChange("insuranceTypeSelected", value)}
+      className={`relative p-3 text-center rounded-lg border text-xs transition-all ${
+        active
+          ? `border-${color}-500 bg-white ring-2 ring-${color}-200`
+          : "border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50"
+      }`}
+    >
+      <div
+        className={`w-10 h-10 mx-auto mb-2 flex items-center justify-center rounded-md bg-gradient-to-br from-${color}-500 to-${color}-600 text-white`}
+      >
+        <Icon className="w-4 h-4" />
+      </div>
+      <div className="font-semibold text-gray-900">{title}</div>
+      <div className="text-gray-500 text-[11px]">{desc}</div>
+    </button>
+  );
 
   return (
-    <div className="space-y-10">
-      <div className="text-center mb-12">
-        <Badge className="bg-green-100 text-green-700 px-6 py-3 text-base font-semibold mb-6 rounded-full">
-          <Shield className="w-5 h-5 ml-2" />
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="text-center space-y-1">
+        <Badge className="bg-green-100 text-green-700 px-3 py-1 text-xs rounded-full">
+          <Shield className="w-3 h-3 ml-1" />
           بيانات التأمين
         </Badge>
-        <h3 ref={stepHeaderRef} tabIndex={-1} className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        <h3
+          ref={stepHeaderRef}
+          tabIndex={-1}
+          className="text-sm font-bold text-gray-900"
+        >
           تفاصيل وثيقة التأمين
         </h3>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          حدد تفاصيل وثيقة التأمين ونوع التغطية المطلوبة
+        <p className="text-xs text-gray-600 max-w-xs mx-auto leading-snug">
+          حدد تفاصيل الوثيقة ونوع التغطية المطلوبة
         </p>
       </div>
 
-      {/* Insurance Type Selection */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-2xl overflow-hidden">
-        <CardContent className="p-8">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
-              <Shield className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h4 className="font-bold text-gray-900 text-sm">نوع التأمين</h4>
-              <p className="text-gray-600 font-medium">اختر نوع التغطية المناسبة لك</p>
-            </div>
+      {/* Insurance Type */}
+      <Card className="bg-blue-50 border-0 shadow-sm rounded-xl">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-gray-800">
+            <Shield className="w-4 h-4 text-blue-600" />
+            نوع التأمين
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <button
-              type="button"
-              className={`group relative p-8 rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl transform hover:scale-105 ${
-                formData.insuranceTypeSelected === "comprehensive"
-                  ? "border-blue-500 bg-white shadow-xl ring-4 ring-blue-200"
-                  : "border-gray-200 hover:border-blue-300 bg-white hover:bg-blue-50"
-              }`}
-              onClick={() => handleFieldChange("insuranceTypeSelected", "comprehensive")}
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Shield className="w-8 h-8 text-white" />
-                </div>
-                <div className="font-bold text-sm mb-3 text-gray-900">تأمين شامل</div>
-                <div className="text-gray-600 font-medium">تغطية شاملة لجميع المخاطر</div>
-              </div>
-            </button>
-
-            <button
-              type="button"
-              className={`group relative p-8 rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl transform hover:scale-105 ${
-                formData.insuranceTypeSelected === "against-others"
-                  ? "border-blue-500 bg-white shadow-xl ring-4 ring-blue-200"
-                  : "border-gray-200 hover:border-blue-300 bg-white hover:bg-blue-50"
-              }`}
-              onClick={() => handleFieldChange("insuranceTypeSelected", "against-others")}
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                <div className="font-bold text-sm mb-3 text-gray-900">ضد الغير</div>
-                <div className="text-gray-600 font-medium">تغطية الأضرار للطرف الثالث</div>
-              </div>
-            </button>
+          <div className="grid grid-cols-2 gap-3">
+            <SelectButton
+              active={formData.insuranceTypeSelected === "comprehensive"}
+              icon={Shield}
+              title="شامل"
+              desc="كل الأضرار"
+              color="blue"
+              value="comprehensive"
+            />
+            <SelectButton
+              active={formData.insuranceTypeSelected === "against-others"}
+              icon={Users}
+              title="ضد الغير"
+              desc="الأطراف الأخرى"
+              color="green"
+              value="against-others"
+            />
           </div>
         </CardContent>
       </Card>
 
       {/* Additional Options */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl overflow-hidden">
-          <CardContent className="p-8 text-center">
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
-                <Users className="w-7 h-7 text-white" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {/* Additional Drivers */}
+        <Card className="bg-blue-50 border-0 shadow-sm rounded-xl">
+          <CardContent className="p-4 text-center">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center text-white">
+                <Users className="w-4 h-4" />
               </div>
-              <span className="font-bold text-sm text-gray-900">إضافة سائقين</span>
+              <span className="font-semibold text-gray-900 text-sm">
+                السائقون
+              </span>
             </div>
-            <div className="flex items-center justify-center gap-6 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-2">
               <button
                 type="button"
-                className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl text-sm font-bold transform hover:scale-110"
-                onClick={() => handleFieldChange("additionalDrivers", Math.max(0, formData.additionalDrivers - 1))}
+                className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:opacity-90 text-sm"
+                onClick={() =>
+                  handleFieldChange(
+                    "additionalDrivers",
+                    Math.max(0, formData.additionalDrivers - 1)
+                  )
+                }
               >
-                -
+                −
               </button>
-              <span className="text-3xl font-bold text-gray-900 min-w-[4rem]">{formData.additionalDrivers}</span>
+              <span className="text-lg font-bold text-gray-900 w-8 text-center">
+                {formData.additionalDrivers}
+              </span>
               <button
                 type="button"
-                className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl text-sm font-bold transform hover:scale-110"
-                onClick={() => handleFieldChange("additionalDrivers", Math.min(5, formData.additionalDrivers + 1))}
+                className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:opacity-90 text-sm"
+                onClick={() =>
+                  handleFieldChange(
+                    "additionalDrivers",
+                    Math.min(5, formData.additionalDrivers + 1)
+                  )
+                }
               >
                 +
               </button>
             </div>
-            <p className="text-gray-600 font-medium">الحد الأقصى 5 سائقين</p>
+            <p className="text-gray-500 text-[11px]">الحد الأقصى 5 سائقين</p>
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-xl bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl overflow-hidden">
-          <CardContent className="p-8 text-center">
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-green-700 rounded-2xl flex items-center justify-center shadow-lg">
-                <Star className="w-7 h-7 text-white" />
+        {/* Discounts */}
+        <Card className="bg-green-50 border-0 shadow-sm rounded-xl">
+          <CardContent className="p-4 text-center">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-green-700 rounded-lg flex items-center justify-center text-white">
+                <Star className="w-4 h-4" />
               </div>
-              <span className="font-bold text-sm text-green-800">خصومات خاصة</span>
+              <span className="font-semibold text-green-800 text-sm">
+                خصومات
+              </span>
             </div>
-            <div className="flex items-center gap-4 mb-8 justify-center">
+            <div className="flex items-center justify-center gap-2 mb-3">
               <input
                 type="checkbox"
-                className="w-6 h-6 text-green-600 rounded-lg border-2 border-green-300 focus:ring-green-500"
+                className="w-4 h-4 text-green-600 border-2 border-green-300 rounded-md focus:ring-green-500"
                 checked={formData.specialDiscounts}
-                onChange={(e) => handleFieldChange("specialDiscounts", e.target.checked)}
+                onChange={(e) =>
+                  handleFieldChange("specialDiscounts", e.target.checked)
+                }
               />
-              <span className="text-green-800 font-semibold">أريد الحصول على خصومات خاصة</span>
+              <span className="text-xs text-green-800 font-medium">
+                أرغب بخصومات خاصة
+              </span>
             </div>
-            <Button className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white w-full py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <Button className="w-full py-2 text-xs bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-lg shadow hover:shadow-md transition-all">
               عرض الخصومات
             </Button>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }
