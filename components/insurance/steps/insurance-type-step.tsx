@@ -102,55 +102,6 @@ export function InsuranceTypeStep({
           </div>
         </CardContent>
       </Card>
-
-      {/* Additional Options */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {/* Additional Drivers */}
-        <Card className="bg-blue-50 border-0 shadow-sm rounded-xl">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center text-white">
-                <Users className="w-4 h-4" />
-              </div>
-              <span className="font-semibold text-gray-900 text-sm">
-                السائقون
-              </span>
-            </div>
-            <div className="flex items-center justify-center gap-3 mb-2">
-              <button
-                type="button"
-                className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:opacity-90 text-sm"
-                onClick={() =>
-                  handleFieldChange(
-                    "additionalDrivers",
-                    Math.max(0, formData.additionalDrivers - 1)
-                  )
-                }
-              >
-                −
-              </button>
-              <span className="text-lg font-bold text-gray-900 w-8 text-center">
-                {formData.additionalDrivers}
-              </span>
-              <button
-                type="button"
-                className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center hover:opacity-90 text-sm"
-                onClick={() =>
-                  handleFieldChange(
-                    "additionalDrivers",
-                    Math.min(5, formData.additionalDrivers + 1)
-                  )
-                }
-              >
-                +
-              </button>
-            </div>
-            <p className="text-gray-500 text-[11px]">الحد الأقصى 5 سائقين</p>
-          </CardContent>
-        </Card>
-
-      
-      </div>
     </div>
   );
 }
