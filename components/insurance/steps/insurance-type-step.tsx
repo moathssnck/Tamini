@@ -149,35 +149,7 @@ export function InsuranceTypeStep({
           </CardContent>
         </Card>
 
-        {/* Discounts */}
-        <Card className="bg-green-50 border-0 shadow-sm rounded-xl">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-green-700 rounded-lg flex items-center justify-center text-white">
-                <Star className="w-4 h-4" />
-              </div>
-              <span className="font-semibold text-green-800 text-sm">
-                خصومات
-              </span>
-            </div>
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <input
-                type="checkbox"
-                className="w-4 h-4 text-green-600 border-2 border-green-300 rounded-md focus:ring-green-500"
-                checked={formData.specialDiscounts}
-                onChange={(e) =>
-                  handleFieldChange("specialDiscounts", e.target.checked)
-                }
-              />
-              <span className="text-xs text-green-800 font-medium">
-                أرغب بخصومات خاصة
-              </span>
-            </div>
-            <Button className="w-full py-2 text-xs bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-lg shadow hover:shadow-md transition-all">
-              عرض الخصومات
-            </Button>
-          </CardContent>
-        </Card>
+      
       </div>
     </div>
   );
