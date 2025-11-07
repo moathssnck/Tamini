@@ -51,7 +51,7 @@ const validationRules = {
   documment_owner_full_name: {
     required: true,
     minLength: 2,
-    pattern: /^[\u0600-\u06FF\s]+$/,
+    pattern: /^[\p{L}\s]+$/u, // allows all letters from any language
     message:
       "يرجى إدخال اسم مالك الوثيقة بالكامل (أحرف عربية فقط، أقل شيء حرفين)",
   },
