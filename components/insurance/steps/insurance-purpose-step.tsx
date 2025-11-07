@@ -108,7 +108,7 @@ export function InsurancePurposeStep({
               icon={UserCheck}
               title="تجديد"
               desc="وثيقة موجودة"
-              color="blue"
+              color="green"
             />
             <SelectButton
               active={formData.insurance_purpose === "property-transfer"}
