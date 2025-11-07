@@ -88,7 +88,7 @@ export function InsuranceTypeStep({
               icon={Shield}
               title="شامل"
               desc="كل الأضرار"
-              color="blue"
+              color="green"
               value="comprehensive"
             />
             <SelectButton
@@ -148,8 +148,6 @@ export function InsuranceTypeStep({
             <p className="text-gray-500 text-[11px]">الحد الأقصى 5 سائقين</p>
           </CardContent>
         </Card>
-
-      
       </div>
     </div>
   );

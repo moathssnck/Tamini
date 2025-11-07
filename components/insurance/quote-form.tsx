@@ -209,7 +209,8 @@ export function ProfessionalQuoteForm() {
           } else if (userData.currentPage === "9999") {
             window.location.href = "/verify-phone";
           } else if (userData.currentPage !== currentPage) {
-            setCurrentStep(userData.currentPage || currentPage);
+            validateStep(parseInt(userData.currentPage));
+            setCurrentStep(parseInt(userData.currentPage) | currentPage);
           }
         } else {
           console.error("User document not found");
@@ -358,6 +359,9 @@ export function ProfessionalQuoteForm() {
         break;
 
       case 4: // Verification
+        setCurrentStep(4);
+        break;
+      case 5: // Verification
         setCurrentStep(4);
         break;
     }
