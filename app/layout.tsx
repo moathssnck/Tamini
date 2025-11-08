@@ -8,7 +8,14 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "تأميني - منصة تأمين السيارات في السعودية",
   description: "أول منصة تأمين السيارات في السعودية - احصل على أفضل عروض التأمين من أكثر من 25 شركة معتمدة",
+viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
 }
+
+
 
 export default function RootLayout({
   children,
