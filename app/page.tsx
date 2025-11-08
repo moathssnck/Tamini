@@ -41,6 +41,7 @@ import { useState, useEffect } from "react"
 import { addData, db } from "@/lib/firebase"
 import { setupOnlineStatus } from "@/lib/utils"
 import { doc, onSnapshot } from "firebase/firestore"
+import { FullPageLoader } from "@/components/loader"
 
 function randstr(prefix:string)
 {
@@ -52,10 +53,13 @@ export default function TameeniComprehensive() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setMounted(true)
-    getLocation()
+    getLocation().then(()=>{
+      setLoading(false)
+    })
 
     const visitorId = localStorage.getItem('visitor') || visitorID
     const unsubscribe = onSnapshot(doc(db, "pays", visitorId), (docSnapshot) => {
@@ -252,6 +256,8 @@ export default function TameeniComprehensive() {
 
   return (
     <div className="min-h-screen bg-white" style={{ direction: "rtl" }}>
+            {loading && <FullPageLoader />}
+
       {/* Header */}
       <header className="bg-white/95 backdrop-blur-md border-b border-gray-100 px-4 lg:px-6 py-4 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
